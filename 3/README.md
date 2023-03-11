@@ -6,7 +6,13 @@
 ### *a)*
 
 ```
-... Write here your answer ...
+CLIENTE: nome, endereço, num_carta, NIF
+ALUGUER: numero, duracao, data, numero_balcao, nif_cliente, matricula_veiculo
+BALCAO: nome, numero, endereco
+VEICULO: matricula, ano, marca, codigo_tipo_veiculo
+TIPO_VEICULO: designacao, arcondicionado, codigo
+LIGEIRO: numlugares, portas, combustivel
+PESADO: peso, passageiros
 ```
 
 
