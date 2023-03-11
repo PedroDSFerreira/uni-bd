@@ -6,20 +6,43 @@
 ### *a)*
 
 ```
-CLIENTE: nome, endereço, num_carta, NIF
-ALUGUER: numero, duracao, data, numero_balcao, nif_cliente, matricula_veiculo
-BALCAO: nome, numero, endereco
-VEICULO: matricula, ano, marca, codigo_tipo_veiculo
-TIPO_VEICULO: designacao, arcondicionado, codigo
-LIGEIRO: numlugares, portas, combustivel
-PESADO: peso, passageiros
+Cliente(nome, endereco, num_carta, NIF)
+Aluguer(numero, duracao, data, numero_balcao, nif_cliente, matricula_veiculo)
+Balcao(nome, numero, endereco)
+Veiculo(matricula, ano, marca, codigo_tipo_veiculo)
+Similaridade(codigo_tipo_veiculo_1, codigo_tipo_veiculo_2)
+Tipo_veiculo(designacao, arcondicionado, codigo)
+Ligeiro(codigo_tipo_veiculo, numlugares, portas, combustivel)
+Pesado(codigo_tipo_veiculo, peso, passageiros)
 ```
 
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+Cliente
+CK: NIF, num_carta; PK: NIF; FK: -
+
+Aluguer:
+CK: numero; PK: numero; FK: numero_balcao, nif_cliente, matricula_veiculo
+
+Balcao:
+CK: numero; PK: numero; FK: -
+
+Veiculo:
+CK: matricula; PK: matricula; FK: codigo_tipo_veiculo
+
+Tipo_veiculo:
+CK: codigo; PK: codigo; FK: -
+
+Similaridade:
+CK: codigo_tipo_veiculo_1, codigo_tipo_veiculo_2; PK: codigo_tipo_veiculo_1, codigo_tipo_veiculo_2; FK: codigo_tipo_veiculo_1, codigo_tipo_veiculo_2
+
+Ligeiro:
+CK: codigo_tipo_veiculo; PK: codigo_tipo_veiculo; FK: codigo_tipo_veiculo
+
+Pesado:
+CK: codigo_tipo_veiculo; PK: codigo_tipo_veiculo; FK: codigo_tipo_veiculo
 ```
 
 
