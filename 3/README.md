@@ -71,6 +71,9 @@ Can_land(airport_code, type_name)
 ### *b)* 
 
 ```
+Flight:
+CK: number; PK: number; FK: -
+
 Fare:
 CK: code; PK: code; FK: f_number
 
