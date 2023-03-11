@@ -19,7 +19,7 @@
 
 ### *c)* 
 
-![ex_3_1c!](ex_3_1c.jpg "AnImage")
+![ex_3_1c!](ex_3_1c.png "AnImage")
 
 
 ## ​Problema 3.2
@@ -40,7 +40,7 @@
 
 ### *c)* 
 
-![ex_3_2c!](ex_3_2c.jpg "AnImage")
+![ex_3_2c!](ex_3_2c.png "AnImage")
 
 
 ## ​Problema 3.3
@@ -48,16 +48,16 @@
 
 ### *a)* 2.1
 
-![ex_3_3_a!](ex_3_3a.jpg "AnImage")
+![ex_3_3_a!](ex_3_3a.png "AnImage")
 
 ### *b)* 2.2
 
-![ex_3_3_b!](ex_3_3b.jpg "AnImage")
+![ex_3_3_b!](ex_3_3b.png "AnImage")
 
 ### *c)* 2.3
 
-![ex_3_3_c!](ex_3_3c.jpg "AnImage")
+![ex_3_3_c!](ex_3_3c.png "AnImage")
 
 ### *d)* 2.4
 
-![ex_3_3_d!](ex_3_3d.jpg "AnImage")
+![ex_3_3_d!](ex_3_3d.png "AnImage")
