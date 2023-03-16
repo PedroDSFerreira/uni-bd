@@ -27,8 +27,8 @@ CREATE TABLE veiculo(
 
 CREATE TABLE aluguer(
 	[numero] [int] NOT NULL PRIMARY KEY,
-	[duracao] [int] NOT NULL,
-	[data] [char](16) NOT NULL,
+	[duracao] [time] NOT NULL,
+	[data] [date] NOT NULL,
 	[numero_balcao] [int] NOT NULL,
 	[nif_cliente] [int] NOT NULL REFERENCES cliente([nif]),
 	[matricula_veiculo] [varchar](16) NOT NULL,
@@ -37,19 +37,19 @@ CREATE TABLE aluguer(
 
 
 CREATE TABLE similaridade(
-	[codigo_tipo_veiculo_1] [int] NOT NULL REFERENCES tipo_veiculo([codigo]),
-	[codigo_tipo_veiculo_2] [int] NOT NULL REFERENCES tipo_veiculo([codigo]),
+	[codigo_tipo_veiculo_1] [int] NOT NULL FOREIGN KEY REFERENCES tipo_veiculo([codigo]),
+	[codigo_tipo_veiculo_2] [int] NOT NULL FOREIGN KEY REFERENCES tipo_veiculo([codigo]),
 );
 
 CREATE TABLE ligeiro(
-	[codigo_tipo_veiculo] [int] NOT NULL REFERENCES tipo_veiculo([codigo]),
+	[codigo_tipo_veiculo] [int] NOT NULL FOREIGN KEY REFERENCES tipo_veiculo([codigo]),
 	[num_lugares] [int] NOT NULL,
 	[portas] [int] NOT NULL,
 	[combustivel] [varchar](16) NOT NULL,
 );
 
 CREATE TABLE pesado(
-	[codigo_tipo_veiculo] [int] NOT NULL REFERENCES tipo_veiculo([codigo]),
+	[codigo_tipo_veiculo] [int] NOT NULL FOREIGN KEY REFERENCES tipo_veiculo([codigo]),
 	[peso] [int] NOT NULL,
 	[passageiros] [int] NOT NULL,
 );
