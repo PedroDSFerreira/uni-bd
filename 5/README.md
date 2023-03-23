@@ -6,22 +6,21 @@
 ### *a)*
 
 ```
-Write here your answer e.g:
-(π Pname, Pnumber (project) ⨝ Pno=Pnumber (works_on)) ⨝.... 
+π Fname,Minit,Lname,Ssn,Pname (employee ⨝ Ssn=Essn (project ⨝ Pnumber=Pno works_on))
 ```
 
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname (employee ⨝ employee.Super_ssn=supervisor.Ssn (ρ supervisor π Ssn σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee)))
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+γPname; total_hours←sum(Hours) (project ⨝ Pnumber=Pno works_on)
 ```
 
 
