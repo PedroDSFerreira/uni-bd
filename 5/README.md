@@ -35,7 +35,7 @@ Write here your answer e.g:
 ### *e)* 
 
 ```
-... Write here your answer ...
+π Fname,Lname (σ Pno=null (employee ⟗ Ssn=Essn works_on))
 ```
 
 
