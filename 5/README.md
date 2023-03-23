@@ -6,8 +6,7 @@
 ### *a)*
 
 ```
-Write here your answer e.g:
-(π Pname, Pnumber (project) ⨝ Pno=Pnumber (works_on)) ⨝.... 
+π Fname,Minit,Lname,Ssn,Pname (employee ⨝ Ssn=Essn (project ⨝ Pnumber=Pno works_on))
 ```
 
 
@@ -21,7 +20,7 @@ Write here your answer e.g:
 ### *c)* 
 
 ```
-... Write here your answer ...
+γPname; total_hours←sum(Hours) (project ⨝ Pnumber=Pno works_on)
 ```
 
 
