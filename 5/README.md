@@ -28,7 +28,7 @@ Write here your answer e.g:
 ### *d)* 
 
 ```
-... Write here your answer ...
+πFname,Minit,Lname σDnumber=3 ∧ Hours>20 ∧ Pname='Aveiro Digital' (employee ⨝ Ssn=Essn (department ⨝ Dnumber=Dnum (project ⨝ Pnumber=Pno works_on)))
 ```
 
 
