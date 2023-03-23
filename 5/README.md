@@ -14,7 +14,7 @@ Write here your answer e.g:
 ### *b)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname (employee ⨝ employee.Super_ssn=supervisor.Ssn (ρ supervisor π Ssn σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee)))
 ```
 
 
