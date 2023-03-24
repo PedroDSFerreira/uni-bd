@@ -84,7 +84,7 @@
 ### *c)* 
 
 ```
-... Write here your answer ...
+γ mean←avg(cnt) γ numero;cnt←count(numero) (produto ⨝codigo=codProd (encomenda ⨝numero=numEnc item))
 ```
 
 
