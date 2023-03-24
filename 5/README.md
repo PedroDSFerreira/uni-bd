@@ -41,14 +41,14 @@
 ### *f)* 
 
 ```
-(γ Dname;SalaryAvg←avg(Salary) (σ Sex='F' (employee ⨝ Dno=Dnumber department)))
+γ Dname;SalaryAvg←avg(Salary) (σ Sex='F' (employee ⨝ Dno=Dnumber department))
 ```
 
 
 ### *g)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname (σ Relatives>2 (γ Fname,Minit,Lname;Relatives←count(Ssn) (dependent ⨝ Essn=Ssn employee)))
 ```
 
 
