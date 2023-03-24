@@ -41,7 +41,7 @@
 ### *f)* 
 
 ```
-... Write here your answer ...
+(γ Dname;SalaryAvg←avg(Salary) (σ Sex='F' (employee ⨝ Dno=Dnumber department)))
 ```
 
 
