@@ -113,7 +113,7 @@
 ### *c)* 
 
 ```
-... Write here your answer ...
+γ nome;num_prescricao←count(nome) (prescricao ⨝farmacia=nome farmacia)
 ```
 
 
