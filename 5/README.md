@@ -62,7 +62,7 @@
 ### *i)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname,Address (γ Fname,Minit,Lname,Address;cnt←count(Ssn) (employee ⨝Ssn=Essn (works_on ⨝Pno=Pnumber (σ Plocation='Aveiro' (project ⨝Dnum=department.Dnumber (σ Dlocation≠'Aveiro' (department ⨝ department.Dnumber=dept_location.Dnumber dept_location)))))))
 ```
 
 
