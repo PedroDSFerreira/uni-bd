@@ -77,7 +77,7 @@
 ### *b)* 
 
 ```
-... Write here your answer ...
+γ nome, codigo; AvgUn←avg(item.unidades) (item ⨝ (codigo=codProd) produto)
 ```
 
 
