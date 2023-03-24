@@ -55,7 +55,7 @@
 ### *h)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname (σ Essn=null (dependent ⟖ Essn=Ssn (department ⨝ Mgr_ssn=Ssn employee)))
 ```
 
 
