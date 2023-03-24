@@ -100,7 +100,7 @@
 ### *a)*
 
 ```
-... Write here your answer ...
+π nome (σ numPresc=null (paciente ⟕prescricao.numUtente=paciente.numUtente prescricao))
 ```
 
 ### *b)* 
