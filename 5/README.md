@@ -106,7 +106,7 @@
 ### *b)* 
 
 ```
-... Write here your answer ...
+γ especialidade;numPresc←count(especialidade) (prescricao ⨝numMedico=numSNS medico)
 ```
 
 
