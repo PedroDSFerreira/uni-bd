@@ -71,7 +71,7 @@
 ### *a)*
 
 ```
-... Write here your answer ...
+π nome, nif σ numero=null (fornecedor ⟕ nif=fornecedor encomenda)
 ```
 
 ### *b)* 
