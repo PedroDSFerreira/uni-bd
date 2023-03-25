@@ -84,7 +84,7 @@
 ### *c)* 
 
 ```
-γ mean←avg(cnt) γ numero;cnt←count(numero) (produto ⨝codigo=codProd (encomenda ⨝numero=numEnc item))
+... Write here your answer ...
 ```
 
 
@@ -120,7 +120,7 @@
 ### *d)* 
 
 ```
-... Write here your answer ...
+π nome (σ farmaco.numRegFarm=906 ∧ numPresc=null (farmaco ⟕nome=nomeFarmaco (presc_farmaco)))
 ```
 
 ### *e)* 
