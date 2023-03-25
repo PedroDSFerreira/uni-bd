@@ -126,7 +126,7 @@
 ### *e)* 
 
 ```
-... Write here your answer ...
+γ farmacia.nome;numFarmacos←count(farmacia.nome) (farmacia ⨝farmacia.nome=prescricao.farmacia (prescricao ⨝prescricao.numPresc=presc_farmaco.numPresc (presc_farmaco ⨝presc_farmaco.numRegFarm=numReg (farmaco ⨝numRegFarm=numReg farmaceutica))))
 ```
 
 ### *f)* 
