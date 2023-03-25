@@ -91,7 +91,7 @@
 ### *d)* 
 
 ```
-... Write here your answer ...
+π produto.codigo, produto.nome, item.unidades, fornecedor.nif (produto ⨝ codigo=codProd (item ⨝ numEnc=numero (encomenda ⨝ (fornecedor=nif) fornecedor)))
 ```
 
 
