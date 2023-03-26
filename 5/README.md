@@ -132,5 +132,5 @@
 ### *f)* 
 
 ```
-... Write here your answer ...
+π nome (paciente ⨝ σ num_med > 1 (γ numUtente; num_med←count(numMedico) prescricao))
 ```
