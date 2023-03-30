@@ -47,7 +47,9 @@ SELECT DISTINCT pub_name FROM (titles JOIN publishers ON publishers.pub_id=title
 ### *h)* Número total de vendas de cada editora; 
 
 ```
-SELECT pub_name, SUM(ytd_sales) AS total_sales FROM (sales JOIN titles ON sales.title_id=titles.title_id) JOIN publishers ON titles.pub_id=publishers.pub_id GROUP BY pub_name;
+SELECT pub_name, SUM(ytd_sales) AS total_sales
+FROM publishers JOIN titles ON publishers.pub_id=titles.pub_id
+GROUP BY pub_name
 ```
 
 ### *i)* Número total de vendas de cada editora agrupado por título; 
