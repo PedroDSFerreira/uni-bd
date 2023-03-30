@@ -29,7 +29,7 @@ SELECT authors.au_fname AS first_name, authors.au_lname AS last_name, authors.ph
 ### *e)* Consulta definida em d) mas só os autores da Califórnia (CA) cujo último nome é diferente de ‘Ringer’; 
 
 ```
-SELECT authors.au_fname AS first_name, authors.au_lname AS last_name, authors.phone AS telephone FROM authors WHERE authors.au_lname != 'Ringer' AND [state] = 'CA' ORDER BY authors.au_fname, authors.au_lname;
+... Write here your answer ...
 ```
 
 ### *f)* Todas as editoras (publishers) que tenham ‘Bo’ em qualquer parte do nome; 
@@ -59,7 +59,9 @@ SELECT DISTINCT pub_name FROM (titles JOIN publishers ON publishers.pub_id=title
 ### *j)* Nome dos títulos vendidos pela loja ‘Bookbeat’; 
 
 ```
-... Write here your answer ...
+SELECT title FROM (titles JOIN (
+	SELECT title_id FROM (stores JOIN sales ON stores.stor_id=sales.stor_id) 
+		WHERE stor_name='Bookbeat') AS store_titles ON titles.title_id=store_titles.title_id)
 ```
 
 ### *k)* Nome de autores que tenham publicações de tipos diferentes; 
