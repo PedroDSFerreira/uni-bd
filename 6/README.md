@@ -67,7 +67,11 @@ SELECT title FROM (titles JOIN (
 ### *k)* Nome de autores que tenham publicações de tipos diferentes; 
 
 ```
-... Write here your answer ...
+SELECT au_fname, au_lname
+FROM authors JOIN (SELECT au_id
+	FROM (titles JOIN titleauthor ON titles.title_id=titleauthor.title_id) 
+		GROUP BY au_id
+			HAVING COUNT(DISTINCT type) > 1) AS diff_types ON authors.au_id=diff_types.au_id;
 ```
 
 ### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);
