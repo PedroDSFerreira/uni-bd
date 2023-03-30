@@ -35,7 +35,7 @@ SELECT authors.au_fname AS first_name, authors.au_lname AS last_name, authors.ph
 ### *f)* Todas as editoras (publishers) que tenham ‘Bo’ em qualquer parte do nome; 
 
 ```
-... Write here your answer ...
+SELECT * FROM publishers WHERE pub_name like '%Bo%';
 ```
 
 ### *g)* Nome das editoras que têm pelo menos uma publicação do tipo ‘Business’; 
