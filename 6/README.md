@@ -11,7 +11,7 @@ SELECT * FROM authors;
 ### *b)* O primeiro nome, o último nome e o telefone dos autores;
 
 ```
-... Write here your answer ...
+SELECT authors.au_fname, authors.au_lname, authors.phone FROM authors;
 ```
 
 ### *c)* Consulta definida em b) mas ordenada pelo primeiro nome (ascendente) e depois o último nome (ascendente); 
