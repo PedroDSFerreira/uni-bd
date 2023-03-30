@@ -23,7 +23,7 @@ SELECT authors.au_fname, authors.au_lname, authors.phone FROM authors ORDER BY a
 ### *d)* Consulta definida em c) mas renomeando os atributos para (first_name, last_name, telephone); 
 
 ```
-SELECT authors.au_fname, authors.au_lname, authors.phone FROM authors ORDER BY authors.au_fname, authors.au_lname;
+SELECT authors.au_fname AS first_name, authors.au_lname AS last_name, authors.phone AS telephone FROM authors ORDER BY authors.au_fname, authors.au_lname;
 ```
 
 ### *e)* Consulta definida em d) mas só os autores da Califórnia (CA) cujo último nome é diferente de ‘Ringer’; 
