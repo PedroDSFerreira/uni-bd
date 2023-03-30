@@ -17,7 +17,7 @@ SELECT authors.au_fname, authors.au_lname, authors.phone FROM authors;
 ### *c)* Consulta definida em b) mas ordenada pelo primeiro nome (ascendente) e depois o último nome (ascendente); 
 
 ```
-... Write here your answer ...
+SELECT authors.au_fname, authors.au_lname, authors.phone FROM authors ORDER BY authors.au_fname, authors.au_lname;
 ```
 
 ### *d)* Consulta definida em c) mas renomeando os atributos para (first_name, last_name, telephone); 
