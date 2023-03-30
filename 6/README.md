@@ -5,7 +5,7 @@
 ### *a)* Todos os tuplos da tabela autores (authors);
 
 ```
-... Write here your answer ...
+SELECT * FROM authors;
 ```
 
 ### *b)* O primeiro nome, o último nome e o telefone dos autores;
