@@ -55,7 +55,8 @@ GROUP BY pub_name
 ### *i)* Número total de vendas de cada editora agrupado por título; 
 
 ```
-... Write here your answer ...
+SELECT title, pub_name, ytd_sales
+FROM publishers JOIN titles ON publishers.pub_id=titles.pub_id
 ```
 
 ### *j)* Nome dos títulos vendidos pela loja ‘Bookbeat’; 
