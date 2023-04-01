@@ -108,12 +108,12 @@ GROUP BY title, royalty, price, author, ytd_sales, royaltyper
 ### *o)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, a faturação total, o valor da faturação relativa aos autores e o valor da faturação relativa à editora;
 
 ```
-SELECT ytd_sales,
-	title,
-	price*ytd_sales AS total_revenue,
-	price*ytd_sales*royalty/100 AS authors_share,
-	price*ytd_sales*(100-royalty)/100 AS publishers_share
-FROM titles
+SELECT ytd_sales, title, ytd_sales*price AS total_revenue, ytd_sales*price*royalty/100 AS authors_share, price*ytd_sales*(100-royalty)/100 AS publishers_share
+FROM titles JOIN 
+		(SELECT authors.au_id, au_fname + ' ' + au_lname AS author, title_id, royaltyper
+		FROM titleauthor JOIN authors ON titleauthor.au_id=authors.au_id) AS a
+	ON titles.title_id=a.title_id
+GROUP BY title, royalty, price, author, ytd_sales, royaltyper
 ```
 
 ### *p)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, o nome de cada autor, o valor da faturação de cada autor e o valor da faturação relativa à editora;
