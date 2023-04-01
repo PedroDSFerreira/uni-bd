@@ -88,7 +88,10 @@ GROUP BY type, pub_id
 ### *m)* Obter o(s) tipo(s) de título(s) para o(s) qual(is) o máximo de dinheiro “à cabeça” (advance) é uma vez e meia superior à média do grupo (tipo);
 
 ```
-... Write here your answer ...
+SELECT type, AVG(advance) AS avg_advance
+FROM titles
+GROUP BY type
+HAVING MAX(advance) > 1.5*AVG(advance)
 ```
 
 ### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda;
