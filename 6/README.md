@@ -142,7 +142,12 @@ HAVING (SELECT DISTINCT COUNT(title)) >= (SELECT COUNT(title) FROM titles)
 ### *r)* Lista de lojas que venderam mais livros do que a média de todas as lojas;
 
 ```
-... Write here your answer ...
+SELECT stor_name, SUM(qty) as books_sold
+FROM sales JOIN stores ON sales.stor_id=stores.stor_id
+GROUP BY stor_name
+HAVING SUM(qty) > (SELECT AVG(b) FROM (SELECT stor_name, SUM(qty) AS b
+					FROM sales JOIN stores ON sales.stor_id=stores.stor_id
+					GROUP BY stor_name) AS s)
 ```
 
 ### *s)* Nome dos títulos que nunca foram vendidos na loja “Bookbeat”;
