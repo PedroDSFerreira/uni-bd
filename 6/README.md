@@ -191,55 +191,91 @@ ORDER BY pub_name
 ##### *a)*
 
 ```
-... Write here your answer ...
+SELECT Fname,Minit,Lname,Ssn,Pname
+FROM 	project JOIN works_on ON Pnumber=Pno
+				JOIN employee ON Ssn=Essn
 ```
 
 ##### *b)* 
 
 ```
-... Write here your answer ...
+SELECT Fname,Minit,Lname
+FROM employee JOIN
+		(SELECT Ssn
+		FROM employee
+		WHERE Fname='Carlos' AND Minit='D' AND Lname='Gomes') AS supervisor
+	ON employee.Super_ssn=supervisor.Ssn
 ```
 
 ##### *c)* 
 
 ```
-... Write here your answer ...
+SELECT Pname, SUM(Hours) AS total_hours
+FROM project JOIN works_on ON Pnumber=Pno
+GROUP BY Pname
 ```
 
 ##### *d)* 
 
 ```
-... Write here your answer ...
+SELECT Fname,Minit,Lname
+FROM project JOIN works_on ON Pnumber=Pno
+			JOIN department ON Dnumber=Dnum
+			JOIN employee ON Ssn=Essn
+WHERE Dnumber=3 AND Hours>20 AND Pname='Aveiro Digital'
 ```
 
 ##### *e)* 
 
 ```
-... Write here your answer ...
+SELECT Fname,Minit,Lname
+FROM employee LEFT JOIN works_on ON Ssn=Essn
+WHERE Pno IS NULL 
 ```
 
 ##### *f)* 
 
 ```
-... Write here your answer ...
+SELECT Dname, AVG(Salary) AS SalaryAvg 
+FROM employee JOIN department ON Dno=Dnumber
+WHERE Sex='F'
+GROUP BY Dname
 ```
 
 ##### *g)* 
 
 ```
-... Write here your answer ...
+SELECT Fname,Minit,Lname 
+FROM (SELECT Fname,Minit,Lname,count(Ssn) AS Relatives 
+			FROM dependent JOIN employee ON Essn=Ssn
+		 	GROUP BY Fname,Minit,Lname) AS employee
+WHERE employee.Relatives>2
 ```
 
 ##### *h)* 
 
 ```
-... Write here your answer ...
+SELECT Fname,Minit,Lname
+FROM employee 
+	JOIN department ON Mgr_ssn=Ssn
+	LEFT JOIN dependent ON Essn=Ssn
+WHERE Essn IS NULL
 ```
 
 ##### *i)* 
 
 ```
-... Write here your answer ...
+SELECT Fname, Minit, Lname, Address
+FROM works_on JOIN
+	(SELECT *
+	FROM project JOIN
+		(SELECT department.Dnumber
+		FROM department JOIN dept_location ON department.Dnumber=dept_location.Dnumber
+		WHERE Dlocation!='Aveiro') AS dept
+	ON Dnum=dept.Dnumber
+	WHERE Plocation='Aveiro') AS proj
+ON Pno=Pnumber
+JOIN employee ON Ssn=Essn
 ```
 
 ### 5.2
