@@ -80,7 +80,9 @@ FROM authors JOIN (SELECT au_id
 ### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);
 
 ```
-... Write here your answer ...
+SELECT type, pub_id, AVG(price) AS avg_price, SUM(ytd_sales) AS total_sales
+FROM titles
+GROUP BY type, pub_id
 ```
 
 ### *m)* Obter o(s) tipo(s) de título(s) para o(s) qual(is) o máximo de dinheiro “à cabeça” (advance) é uma vez e meia superior à média do grupo (tipo);
