@@ -153,7 +153,12 @@ HAVING SUM(qty) > (SELECT AVG(b) FROM (SELECT stor_name, SUM(qty) AS b
 ### *s)* Nome dos títulos que nunca foram vendidos na loja “Bookbeat”;
 
 ```
-... Write here your answer ...
+SELECT title
+FROM titles
+WHERE title NOT IN (SELECT DISTINCT title 
+					FROM titles JOIN sales ON titles.title_id=sales.title_id
+								JOIN stores ON sales.stor_id=stores.stor_id
+					WHERE stor_name='Bookbeat')
 ```
 
 ### *t)* Para cada editora, a lista de todas as lojas que nunca venderam títulos dessa editora; 
