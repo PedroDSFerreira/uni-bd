@@ -97,12 +97,12 @@ HAVING MAX(advance) > 1.5*AVG(advance)
 ### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda;
 
 ```
-SELECT title, author, ytd_sales*price*royaltyper/100 AS total_earnings
+SELECT title, author, ytd_sales*price*royaltyper/100*royalty/100 AS total_earnings
 FROM titles JOIN 
 		(SELECT authors.au_id, au_fname + ' ' + au_lname AS author, title_id, royaltyper
 		FROM titleauthor JOIN authors ON titleauthor.au_id=authors.au_id) AS a
 	ON titles.title_id=a.title_id
-GROUP BY title, price, author, ytd_sales, royaltyper
+GROUP BY title, royalty, price, author, ytd_sales, royaltyper
 ```
 
 ### *o)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, a faturação total, o valor da faturação relativa aos autores e o valor da faturação relativa à editora;
