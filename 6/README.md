@@ -108,7 +108,12 @@ GROUP BY title, price, author, ytd_sales, royaltyper
 ### *o)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, a faturação total, o valor da faturação relativa aos autores e o valor da faturação relativa à editora;
 
 ```
-... Write here your answer ...
+SELECT ytd_sales,
+	title,
+	price*ytd_sales AS total_revenue,
+	price*ytd_sales*royalty/100 AS authors_share,
+	price*ytd_sales*(100-royalty)/100 AS publishers_share
+FROM titles
 ```
 
 ### *p)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, o nome de cada autor, o valor da faturação de cada autor e o valor da faturação relativa à editora;
