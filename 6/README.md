@@ -130,7 +130,13 @@ GROUP BY title, royalty, price, author, ytd_sales, royaltyper
 ### *q)* Lista de lojas que venderam pelo menos um exemplar de todos os livros;
 
 ```
-... Write here your answer ...
+SELECT stor_name, title
+FROM titles JOIN
+		(SELECT stor_name, title_id
+		FROM sales JOIN stores ON sales.stor_id=stores.stor_id) AS s
+	ON titles.title_id=s.title_id
+GROUP BY stor_name, title
+HAVING (SELECT DISTINCT COUNT(title)) >= (SELECT COUNT(title) FROM titles)
 ```
 
 ### *r)* Lista de lojas que venderam mais livros do que a média de todas as lojas;
