@@ -293,27 +293,37 @@ JOIN employee ON Ssn=Essn
 ##### *a)*
 
 ```
-... Write here your answer ...
+SELECT nome, nif
+FROM fornecedor LEFT JOIN encomenda ON nif=fornecedor
+WHERE numero IS NULL
 ```
 
 ##### *b)* 
 
 ```
-... Write here your answer ...
+SELECT nome, codigo, avg(item.unidades) AS avg_un
+FROM item JOIN produto ON codigo=codProd
+GROUP BY nome, codigo
 ```
 
 
 ##### *c)* 
 
 ```
-... Write here your answer ...
+SELECT AVG(cnt) AS mean
+FROM (SELECT numEnc, COUNT(numEnc) AS cnt
+			FROM produto JOIN item ON codigo=codProd
+		 	GROUP BY numEnc) AS enc
 ```
 
 
 ##### *d)* 
 
 ```
-... Write here your answer ...
+SELECT produto.codigo, produto.nome, item.unidades, fornecedor.nif
+FROM encomenda 	JOIN fornecedor ON fornecedor=nif
+				JOIN item ON numEnc=numero
+				JOIN produto ON codigo=codProd
 ```
 
 ### 5.3
