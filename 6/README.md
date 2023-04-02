@@ -341,37 +341,55 @@ FROM encomenda 	JOIN fornecedor ON fornecedor=nif
 ##### *a)*
 
 ```
-... Write here your answer ...
+SELECT nome 
+FROM paciente LEFT JOIN prescricao ON prescricao.numUtente=paciente.numUtente
+WHERE numPresc IS NULL
 ```
 
 ##### *b)* 
 
 ```
-... Write here your answer ...
+SELECT especialidade, COUNT(especialidade) AS numPresc
+FROM prescricao JOIN medico ON numMedico=numSNS
+GROUP BY especialidade
 ```
 
 
 ##### *c)* 
 
 ```
-... Write here your answer ...
+SELECT nome, COUNT(nome) AS num_prescricao
+FROM prescricao JOIN farmacia ON farmacia=nome
+GROUP BY nome
 ```
 
 
 ##### *d)* 
 
 ```
-... Write here your answer ...
+SELECT nome 
+FROM farmaco LEFT JOIN presc_farmaco ON nome=nomeFarmaco
+WHERE farmaco.numRegFarm=906 AND numPresc IS NULL
 ```
 
 ##### *e)* 
 
 ```
-... Write here your answer ...
+SELECT farmacia.nome, COUNT(farmacia.nome) AS num_farmacos
+FROM farmaco 	JOIN farmaceutica ON numRegFarm=numReg
+				JOIN presc_farmaco ON presc_farmaco.numRegFarm=numReg
+				JOIN prescricao ON prescricao.numPresc=presc_farmaco.numPresc
+				JOIN farmacia ON farmacia.nome=prescricao.farmacia
+GROUP BY farmacia.nome
 ```
 
 ##### *f)* 
 
 ```
-... Write here your answer ...
+SELECT nome
+FROM paciente NATURAL JOIN
+	(SELECT numUtente, COUNT(numMedico) AS num_med 
+	FROM prescricao
+	GROUP BY numUtente) AS med
+WHERE num_med > 1
 ```
