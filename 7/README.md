@@ -6,16 +6,16 @@
 ### *a)*
 
 ```
-... Write here your answer ...
-It is possible to <u>underline</u> -> {A, B,.. }
--> R1 (_A_, B, C)
--> R2 (B,F)
+A relação tem apenas atributos atómicos e não tem relações dentro de relações. Por outro lado, existem dependências parciais, logo é uma relação 1FN.
 ```
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, D, F, G, I}
+R2 = {_B_, C}
+R3 = {_D_, _F_, E}
+R4 = {_G_, H}
 ```
 
 
@@ -26,21 +26,27 @@ It is possible to <u>underline</u> -> {A, B,.. }
 ### *a)*
 
 ```
-... Write here your answer ...
+{_A_, _B_}
 ```
 
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, C}
+R2 = {_A_, D, E, I, J}
+R3 = {_B_, F, G, H}
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, C}
+R2 = {_A_, D, E}
+R3 = {_B_, F}
+R4 = {_D_, I, J}
+R5 = {_F_, G, H}
 ```
 
 
@@ -49,21 +55,25 @@ It is possible to <u>underline</u> -> {A, B,.. }
 ### *a)*
 
 ```
-... Write here your answer ...
+{_B_}
 ```
 
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, C, D}
+R2 = {_D_, E}
+R3 = {_C_, A}
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+R1 = {_B_, C, D}
+R2 = {_D_, E}
+R3 = {_C_, A}
 ```
 
 
@@ -73,24 +83,29 @@ It is possible to <u>underline</u> -> {A, B,.. }
 ### *a)*
 
 ```
-... Write here your answer ...
+{_A_, _B_}
 ```
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, D, E}
+R2 = {_A_, C, D}
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, D, E}
+R2 = {_A_, C}
+R3 = {_C_, D}
 ```
 
 ### *d)* 
 
 ```
-... Write here your answer ...
+R1 = {_A_, _B_, D, E}
+R2 = {_A_, C}
+R3 = {_C_, D}
 ```
