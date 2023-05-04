@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  bd:
+    image: mcr.microsoft.com/mssql/server:2022-latest 
+    environment:
+      - MSSQL_SA_PASSWORD=MyPass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+
+    
+  web:
+    build: ./uni_todo
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DB_HOST=bd
+      - DB_NAME=master
+      - DB_USER=sa
+      - DB_PASS=MyPass@word
+    ports:
+      - "8000:8000"
+    # volumes:
+    #   - ./uni_todo:/app/code
+    depends_on:
+      - bd
+
+volumes:
+  bd:
+    driver: local
