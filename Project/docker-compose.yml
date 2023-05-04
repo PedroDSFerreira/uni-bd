@@ -21,10 +21,6 @@ services:
     ports:
       - "8000:8000"
     # volumes:
-    #   - ./uni_todo:/app/code
+    #   - ./uni_todo:/app
     depends_on:
       - bd
-
-volumes:
-  bd:
-    driver: local
