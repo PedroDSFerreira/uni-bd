@@ -23,31 +23,36 @@ Complete the following table.
 ### a)
 
 ```
-... Write here your answer ...
+CREATE UNIQUE CLUSTERED INDEX idx_rid ON dbo.mytemp(rid)
 ```
 
 ### b)
 
 ```
-... Write here your answer ...
+Fragmentação: 98.8%
+Ocupação: 69.9%
 ```
 
 ### c)
 
 ```
-... Write here your answer ...
+Fillfactor 65%: 61264
+Fillfactor 80%: 61790
+Fillfactor 90%: 65867
 ```
 
 ### d)
 
 ```
-... Write here your answer ...
+Fillfactor 65%: 54150
+Fillfactor 80%: 54922
+Fillfactor 90%: 53871
 ```
 
 ### e)
 
 ```
-... Write here your answer ...
+Os tempos de inserção aumentam com o aumento do número de índices, ou seja, a performance é pior com todos os índices.
 ```
 
 ## ​8.3.
