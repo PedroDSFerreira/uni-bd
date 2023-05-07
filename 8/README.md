@@ -53,5 +53,10 @@ Complete the following table.
 ## ​8.3.
 
 ```
-... Write here your answer ...
+i. CREATE UNIQUE CLUSTERED INDEX idx_ssn ON EMPLOYEE(Ssn);
+ii. CREATE COMPOSITE NONCLUSTERED INDEX idx_name ON EMPLOYEE(Fname, Lname);
+iii. CREATE NONCLUSTERED INDEX idx_dno ON EMPLOYEE(Dno);
+iv. CREATE UNIQUE CLUSTERED INDEX idx_essn_pno ON WORKS_ON(Essn, Pno);
+v. CREATE UNIQUE CLUSTERED INDEX idx_essn_dname ON DEPENDENT(Essn, Dependent_name);
+vi. CREATE COMPOSITE NONCLUSTERED INDEX idx_pnumber_dnum ON PROJECT(Pnumber, Dnum);
 ```
