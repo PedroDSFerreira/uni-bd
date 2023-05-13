@@ -176,8 +176,24 @@ END
 
 ### *h)* 
 
-```
-... Write here your answer ...
+```sql
+CREATE TRIGGER delete_dep_trigger ON department
+INSTEAD OF DELETE
+AS
+BEGIN
+
+    IF (NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_NAME = 'deleted_department'))
+        BEGIN
+            CREATE TABLE deleted_department (Dname varchar(128) NOT NULL, Dnumber int PRIMARY KEY, Mgr_ssn char(9), Mgr_start_date date);
+        END
+
+    DELETE FROM project WHERE Dnum in (SELECT Dnumber FROM deleted);
+    UPDATE employee SET Dno=NULL WHERE DNO IN (SELECT Dnumber FROM deleted);
+    INSERT INTO deleted_department SELECT * FROM DELETED;
+    DELETE FROM department WHERE Dnumber IN (SELECT Dnumber FROM deleted);
+
+END
 ```
 
 ### *i)* 
