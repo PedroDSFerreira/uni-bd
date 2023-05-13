@@ -115,8 +115,14 @@ END
 
 ### *e)* 
 
-```
-... Write here your answer ...
+```sql
+CREATE FUNCTION get_emp_projs (@ssn char(9))
+RETURNS TABLE 
+AS 
+	RETURN(SELECT Pname, Plocation 
+			FROM works_on JOIN employee ON Essn=Ssn
+				JOIN project ON Pno=Pnumber
+				WHERE Ssn=@ssn);
 ```
 
 ### *f)* 
