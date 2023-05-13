@@ -43,8 +43,19 @@ SELECT @Fname+' '+@Lname AS _name, @ssn AS ssn, @num_yrs AS yrs
 
 ### *c)* 
 
-```
-... Write here your answer ...
+```sql
+CREATE TRIGGER mgr_restrain ON company.dbo.department
+AFTER INSERT, UPDATE AS
+BEGIN
+	DECLARE @Ssn char(9);
+	SELECT @Ssn=Mgr_ssn FROM inserted;
+
+	IF EXISTS(SELECT Mgr_ssn FROM inserted WHERE Mgr_ssn=@Ssn)
+	BEGIN
+		ROLLBACK TRAN;
+		RAISERROR('Funcionário já é gestor de um departartamento', 16, 1);
+	END
+END
 ```
 
 ### *d)* 
