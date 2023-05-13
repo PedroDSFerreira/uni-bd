@@ -127,8 +127,13 @@ AS
 
 ### *f)* 
 
-```
-... Write here your answer ...
+```sql
+CREATE FUNCTION get_top_salaries(@dno int)
+RETURNS TABLE
+AS
+	RETURN(
+	SELECT Fname+' '+Minit+' '+Lname AS [Name] FROM employee WHERE Dno=@dno AND Salary >= (
+		SELECT AVG(Salary) FROM employee WHERE Dno=@dno));
 ```
 
 ### *g)* 
