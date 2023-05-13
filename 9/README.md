@@ -138,8 +138,40 @@ AS
 
 ### *g)* 
 
-```
-... Write here your answer ...
+```sql
+CREATE FUNCTION employeeDeptHighAverage(@dno int) RETURNS @table TABLE (pname varchar(128), number int, plocation varchar(256), dnum int, budget float, totalbudget float)
+as
+BEGIN
+
+    DECLARE @pname as varchar(128), @number as int, @plocation as varchar(256), @dnum as int, @budget as float, @totalbudget as float;
+
+    DECLARE C CURSOR FAST_FORWARD
+    FOR SELECT Pname, Pnumber, Plocation, Dnumber, Sum(Salary*[Hours]/40)
+        FROM    department 
+                JOIN project ON Dnumber=Dnum
+                JOIN works_on ON Pnumber=Pno
+                JOIN employee ON Essn=Ssn
+        WHERE Dnumber=@dno
+        GROUP BY Pname, Pnumber, Plocation, Dnumber;
+
+    OPEN C;
+
+    FETCH C INTO @pname, @number, @plocation, @dnum, @budget;
+    SELECT @totalbudget = 0;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SET @totalbudget += @budget;
+        INSERT INTO @table VALUES (@pname, @number, @plocation, @dnum, @budget, @totalbudget)
+        FETCH C INTO @pname, @number, @plocation, @dnum, @budget;
+    END
+
+    CLOSE C;
+
+    DEALLOCATE C;
+
+    return;
+END
 ```
 
 ### *h)* 
