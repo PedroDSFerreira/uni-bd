@@ -5,8 +5,15 @@
  
 ### *a)*
 
-```
-... Write here your answer ...
+```sql
+CREATE PROCEDURE remove_employee (@ssn char(9)) AS
+BEGIN
+	DELETE FROM company.dbo.dependent WHERE Essn=@ssn;
+	DELETE FROM company.dbo.works_on WHERE Essn=@ssn;
+	UPDATE company.dbo.department SET Mgr_ssn=Null WHERE Mgr_ssn=@ssn;
+	UPDATE company.dbo.employee SET Super_ssn=Null WHERE Super_ssn=@ssn;
+	DELETE FROM company.dbo.employee WHERE Ssn=@ssn;
+END
 ```
 
 ### *b)* 
