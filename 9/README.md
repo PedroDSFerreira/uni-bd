@@ -16,10 +16,29 @@ BEGIN
 END
 ```
 
-### *b)* 
+### *b)* sql
 
 ```
-... Write here your answer ...
+CREATE PROCEDURE get_managers (@Fname varchar(128) output, @Lname varchar(128) output, @ssn char(9) output, @num_years int output) AS
+BEGIN
+	SELECT top 1 @Fname=Fname, @Lname=Lname, @ssn=Ssn, @num_years=DATEDIFF(year,Mgr_start_date, GETDATE())
+	FROM
+	(SELECT Fname,Lname,Ssn,Mgr_start_date
+	FROM company.dbo.employee JOIN company.dbo.department ON Ssn=Mgr_ssn) AS o ORDER BY Mgr_start_date;
+
+END
+
+
+GO
+
+DECLARE @Fname varchar(128);
+DECLARE @Lname varchar(128);
+DECLARE @ssn char(9);
+DECLARE @num_yrs int;
+
+EXEC dbo.get_managers @Fname output, @Lname output, @ssn output, @num_yrs output;
+
+SELECT @Fname+' '+@Lname AS _name, @ssn AS ssn, @num_yrs AS yrs
 ```
 
 ### *c)* 
