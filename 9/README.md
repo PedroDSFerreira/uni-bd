@@ -60,8 +60,57 @@ END
 
 ### *d)* 
 
-```
-... Write here your answer ...
+```sql
+CREATE TRIGGER salary_restrain ON employee
+INSTEAD OF INSERT, UPDATE
+AS
+BEGIN
+
+    DECLARE @Salary as float;
+    DECLARE @Mgr_salary as float = NULL;
+    DECLARE @IsUpdate as int;
+
+    SELECT @Salary=Salary FROM inserted;
+    SELECT @IsUpdate=COUNT(*) FROM deleted;
+
+
+    SELECT @Mgr_salary=employee.Salary
+    FROM inserted JOIN department ON inserted.Dno=Dnumber
+        JOIN employee ON Mgr_ssn=Employee.Ssn
+    WHERE employee.Salary<@Salary;
+
+    if(@IsUpdate = 0)
+    BEGIN
+        if (@Mgr_salary = NULL)
+        BEGIN
+            INSERT INTO employee
+            SELECT *
+            FROM inserted;
+        END
+    ELSE
+        BEGIN
+            INSERT INTO employee
+            SELECT Fname, Minit, Lname, Ssn, Bdate, [Address], Sex, @Mgr_salary-1, Super_ssn, Dno
+            FROM inserted;
+        END
+    END
+    ELSE
+    BEGIN
+        if (@Mgr_salary = NULL)
+        BEGIN
+            UPDATE employee
+            SET Fname=inserted.Fname, Minit=inserted.Minit, Lname=inserted.Lname, Ssn=inserted.Ssn, Bdate=inserted.Bdate, [Address]=inserted.[Address], Sex=inserted.Sex, Salary=inserted.Salary, Super_ssn=inserted.Super_ssn, Dno=inserted.Dno
+            FROM deleted JOIN inserted ON deleted.Ssn=inserted.Ssn;
+        END
+        ELSE
+        BEGIN
+            UPDATE employee
+            SET Fname=inserted.Fname, Minit=inserted.Minit, Lname=inserted.Lname, Ssn=inserted.Ssn, Bdate=inserted.Bdate, [Address]=inserted.[Address], Sex=inserted.Sex, Salary=@Mgr_salary-1, Super_ssn=inserted.Super_ssn, Dno=inserted.Dno
+            FROM deleted JOIN inserted ON deleted.Ssn=inserted.Ssn;
+        END
+    END
+
+END
 ```
 
 ### *e)* 
