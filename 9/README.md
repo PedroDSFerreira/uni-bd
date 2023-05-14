@@ -199,5 +199,5 @@ END
 ### *i)* 
 
 ```
-... Write here your answer ...
+Relativamente aos stored procedures, as UDFs têm os mesmos benefícios relativamente a compilação, otimização integridade de dados e segurança, tendo a vantagem de poder ser integrados em consultas, de poder ser utilizado como uma fonte de dados nas consultas e cláusulas WHERE/HAVING, e de aceitar parâmetros de entrada (algo que não é possível com views).
 ```
