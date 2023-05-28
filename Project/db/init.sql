@@ -379,6 +379,7 @@ GO
 CREATE PROCEDURE uni_tasks.RegisterUser
     @username VARCHAR(128),
     @password VARCHAR(128),
+	@uni_id INT,
     @register_result BIT OUTPUT,
     @user_id INT OUTPUT
 AS
@@ -388,8 +389,8 @@ BEGIN
     SET @passwordHash = HASHBYTES('SHA2_256', @password);
 
     -- Store the hashed password in the database
-    INSERT INTO uni_tasks._user ([name], password_hash)
-    VALUES (@username, @passwordHash);
+    INSERT INTO uni_tasks._user ([name], password_hash, uni_id)
+    VALUES (@username, @passwordHash, @uni_id);
 
     -- Set the success message and return the generated user ID
     SET @register_result = 1;
