@@ -8,7 +8,7 @@ def list_universities(request):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             # Execute the procedure to fetch universities
-            cursor.execute("EXEC uni_tasks.GetUniversities")
+            cursor.execute("EXEC uni_tasks.ListUniversities")
             result = cursor.fetchall()
             
         universities = [{'id': row[0], 'name': row[1]} for row in result]
