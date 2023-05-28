@@ -1,0 +1,301 @@
+# UniTask
+## The Essential University Checklist
+
+## Introduction
+
+
+The aim of this platform is to build a web application that helps manage tasks for university students.
+
+## Technologies used
+
+### Frontend
+
+- HTML
+- CSS (Bootstrap)
+- JavaScript (jQuery)
+
+### Backend
+
+- Django
+- Microsoft SQL Server
+
+## Requirements
+
+
+To run the server, you need to have the following software installed:
+
+- Docker
+- Docker compose
+
+## Getting Started
+
+1. Clone the repository:
+    
+    ```bash
+    git clone <repo-url>
+    ```
+    
+2. Navigate to the project directory.
+3. Build and run the Docker containers:
+    
+    ```bash
+    docker compose up
+    ```
+    
+    Now wait for 90 seconds for the containers to start up, and the DB to be seeded with data.
+        
+4. Once everything is up and running, you can access the web platform in your browser at **[http://localhost:8000/](http://localhost:8000/)**.
+
+## API Endpoints
+
+1. `/list_universities`
+   - Request method: GET
+   - Description: Retrieves a list of universities from the database.
+   - Example response (JSON):
+     ```json
+     [
+       {
+         "id": 1,
+         "name": "University 1"
+       },
+       {
+         "id": 2,
+         "name": "University 2"
+       }
+     ]
+     ```
+
+2. `/delete_task`
+   - Request method: POST
+   - Description: Soft deletes a task from the database.
+   - Example request (JSON):
+     ```json
+     {
+       "task_id": "123"
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     {
+       "message": "Task deleted successfully."
+     }
+     ```
+
+3. `/associate_task_with_user`
+   - Request method: POST
+   - Description: Associates a task with a user.
+   - Example request (JSON):
+     ```json
+     {
+       "task_id": "123",
+       "user_id": "456"
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     {
+       "message": "Task associated with user successfully."
+     }
+     ```
+
+4. `/follow_user`
+   - Request method: POST
+   - Description: Follows a user.
+   - Example request (JSON):
+     ```json
+     {
+       "follower_id": "123",
+       "followee_id": "456"
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     {
+       "message": "User followed successfully."
+     }
+     ```
+
+5. `/list_followees`
+   - Request method: POST
+   - Description: Retrieves a list of followees for a given user.
+   - Example request (JSON):
+     ```json
+     {
+       "user_id": "123"
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     [
+       {
+         "id": 1,
+         "name": "User 1",
+         "uni_id": 123
+       },
+       {
+         "id": 2,
+         "name": "User 2",
+         "uni_id": 456
+       }
+     ]
+     ```
+
+6. `/list_followers`
+   - Request method: GET
+   - Description: Retrieves a list of followers for a given user.
+   - Example request: `/list_followers?user_id=123`
+   - Example response (JSON):
+     ```json
+     [
+       {
+         "id": 1,
+         "name": "Follower 1",
+         "uni_id": 123
+       },
+       {
+         "id": 2,
+         "name": "Follower 2",
+         "uni_id": 456
+       }
+     ]
+     ```
+
+7. `/list_tasks`
+   - Request method: POST
+   - Description: Retrieves a list of tasks for a given user.
+   - Example request (JSON):
+     ```json
+     {
+       "user_id": "123",
+       "is_public": "1"
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     [
+       {
+         "id": 1,
+         "name": "Task 1",
+         "description": "Task description",
+         "status": "Pending"
+       },
+       {
+         "id": 2,
+         "name": "Task 2",
+         "description": "Task description",
+         "status": "Completed"
+       }
+     ]
+     ```
+
+8. `/create_task`
+   - Request method: POST
+   - Description: Creates a new task.
+   - Example request (JSON):
+     ```json
+     {
+       "task_name": "New Task",
+       "class_id": 123,
+       "description": "Task description",
+       "group": "Group 1",
+       "status": "Pending",
+       "start_date": "2023-05-28",
+       "end_date": "2023-06-05",
+       "priority_lvl": 2,
+       "is_public": 1,
+       "usr_id": 456
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     {
+       "message": "Task created successfully."
+     }
+     ```
+
+9. `/search_user`
+   - Request method: POST
+   - Description: Searches for a user by name or uni_id.
+   - Example request (JSON):
+     ```json
+     {
+       "user_name": "John",
+       "usr_id": "123"
+     }
+     ```
+   - Example response (JSON):
+     ```json
+     [
+       {
+         "id": 1,
+         "name": "John",
+         "uni_id": 123,
+         "can_follow": true
+       },
+       {
+         "id": 2,
+         "name": "John Doe",
+         "uni_id": 456,
+         "can_follow": false
+       }
+     ]
+     ```
+
+10. `/update_task_view`
+    - Request method: POST
+    - Description: Updates a task.
+    - Example request (JSON):
+      ```json
+      {
+        "task_id": "123",
+        "task_name": "Updated Task",
+        "class_id": "456",
+        "description": "Updated task description",
+        "group": "Updated Group",
+        "status": "In Progress",
+        "start_date": "2023-06-01",
+        "end_date": "2023-06-10",
+        "priority_lvl": "1",
+        "is_public": "0"
+      }
+      ```
+    - Example response (JSON):
+      ```json
+      {
+        "message": "Task updated successfully."
+      }
+      ```
+
+11. `/register_user_view`
+    - Request method: POST
+    - Description: Registers a new user.
+    - Example request (JSON):
+      ```json
+      {
+        "username": "newuser",
+        "password": "password123"
+      }
+      ```
+    - Example response (JSON):
+      ```json
+      {
+        "message": "User registered successfully."
+      }
+      ```
+
+12. `/login_user_view`
+    - Request method: POST
+    - Description: Logs in a user.
+    - Example request (JSON):
+      ```json
+      {
+        "username": "existinguser",
+        "password": "password123"
+      }
+      ```
+    - Example response (JSON):
+      ```json
+      {
+        "message": "Login successful."
+      }
+      ```
