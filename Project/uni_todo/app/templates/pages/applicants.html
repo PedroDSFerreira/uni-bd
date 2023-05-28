@@ -1,0 +1,115 @@
+{% extends "layouts/layout-pages.html" %}
+{% load static %}
+
+{% block content %}
+<div class="text-center">
+    <p class="h5 text-muted">Select applicants' name to see roles</p>
+</div>
+<div class="container pt-4">
+    <div class="row justify-content-center mb-4">
+        <div class="col-12">
+            <form id="search" class="form-inline rounded-pill bg-light">
+                <div class="input-group w-100">
+                    <input name="search" type="text" class="form-control border-0" placeholder="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark rounded-pill" type="submit">
+                            <i class="fas fa-search text-light"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table table-striped table-bordered rounded-table ">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="col-2">Name</th>
+                <th scope="col" class="col-3">Phone Number</th>
+                <th scope="col" class="col-4">Email</th>
+                <th scope="col" class="col-1">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="applicant-list" class="bg-white">
+        </tbody>
+    </table>
+    
+    <div class="row justify-content-end">
+        <div class="col-12 text-right">
+            <div class="rounded-circle d-inline-block p-2">
+                <a href="#" class="btn btn-md btn-success rounded-circle" data-toggle="modal" data-target="#createModal">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">New applicant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="create">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" required placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="phone_number" pattern="[0-9]+" required placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" required placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Roles:</label>
+                        <div id="create-modal-roles" class="form-check"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit applicant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update">
+                    <div class="form-group">
+                        <input id="editName" type="text" class="form-control" name="name" required placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input id="editPhone" type="text" class="form-control" name="phone_number" pattern="[0-9]+" required placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input id="editEmail" type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" required placeholder="Email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="saveChangesBtn" class="btn btn-success">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/applicantsLogic.js' %}"></script>
+{% endblock %}

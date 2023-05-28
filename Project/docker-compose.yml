@@ -8,6 +8,10 @@ services:
       - ACCEPT_EULA=Y
     ports:
       - "1433:1433"
+    volumes:
+      - ./data:/var/opt/mssql/data
+    user: root
+    restart: always
 
     
   web:
@@ -20,7 +24,5 @@ services:
       - DB_PASS=MyPass@word
     ports:
       - "8000:8000"
-    # volumes:
-    #   - ./uni_todo:/app
     depends_on:
       - bd

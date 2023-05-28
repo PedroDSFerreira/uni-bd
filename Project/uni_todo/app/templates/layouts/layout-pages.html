@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8 mt-5">
+        <div class="card pb-5 mx-auto bg-light" style="border-radius: 10px;">
+          <div class="card-body">
+            <div class="text-center pt-4">
+              <h1>{{ title }}</h1>
+              <hr class="m-3 pb-1">
+              {% block content %}
+              {% endblock %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/requests.js' %}"></script>
+{% endblock %}

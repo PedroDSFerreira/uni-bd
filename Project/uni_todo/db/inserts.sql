@@ -1,4 +1,4 @@
-USE project
+
 -- Dummy data for uni_tasks.course
 INSERT INTO uni_tasks.course (id, name, field) VALUES
   (1, 'Mathematics', 'Science'),

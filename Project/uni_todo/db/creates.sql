@@ -1,11 +1,3 @@
-CREATE DATABASE project
-GO
-USE project
-GO
-CREATE SCHEMA uni_tasks
-GO
-USE project
-
 CREATE TABLE uni_tasks.course(
 	[id] [int] NOT NULL CHECK([id]>0),
 	[name] [varchar](64) NOT NULL,

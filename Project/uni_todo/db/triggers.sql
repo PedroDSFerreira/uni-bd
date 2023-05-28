@@ -1,5 +1,3 @@
-USE project
-GO
 CREATE TRIGGER uni_tasks.SoftDeleteTask
 ON uni_tasks.task
 INSTEAD OF DELETE
