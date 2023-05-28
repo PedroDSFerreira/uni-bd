@@ -11,7 +11,12 @@ urlpatterns = [
     path('list_tasks', views.list_tasks, name='list_tasks'),
     path('create_task', views.create_task, name='create_task'),
     path('search_user', views.search_user, name='search_user'),
-    path('update_task', views.update_task_view, name='update_task'),
-    path('register_user', views.register_user_view, name='register_user'),
-    path('login_user', views.login_user_view, name='login_user'),
+    path('update_task', views.update_task, name='update_task'),
+    path('register_user', views.register_user, name='register_user'),
+    path('login_user', views.login_user, name='login_user'),
+
+    path('list_all_tasks', views.list_all_tasks, name='list_all_tasks'),
+    path('list_all_users', views.list_all_users, name='list_all_users'),
+    path('list_all_classes', views.list_all_classes, name='list_all_classes'),
+    path('list_all_associations', views.list_all_associations, name='list_all_associations'),
 ]

@@ -1,6 +1,8 @@
-from django.db import connection
+import json
+from django.db import connection, transaction
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
 
 @csrf_exempt
 def list_universities(request):
@@ -20,7 +22,8 @@ def list_universities(request):
 def delete_task(request):
     """Soft deletes a task from the database."""
     if request.method == 'POST':
-        task_id = request.POST.get('task_id')
+        data = json.loads(request.body.decode('utf-8'))
+        task_id = data.get('task_id')
         
         with connection.cursor() as cursor:
             # Execute the DeleteTask stored procedure
@@ -35,8 +38,9 @@ def delete_task(request):
 def associate_task_with_user(request):
     """Associates a task with a user."""
     if request.method == 'POST':
-        task_id = request.POST.get('task_id')
-        user_id = request.POST.get('user_id')
+        data = json.loads(request.body.decode('utf-8'))
+        task_id = data.get('task_id')
+        user_id = data.get('user_id')
 
         with connection.cursor() as cursor:
             # Execute the AssociateTaskWithUser stored procedure
@@ -51,8 +55,10 @@ def associate_task_with_user(request):
 def follow_user(request):
     """Follows a user."""
     if request.method == 'POST':
-        follower_id = request.POST.get('follower_id')
-        followee_id = request.POST.get('followee_id')
+        data = json.loads(request.body.decode('utf-8'))
+
+        follower_id = data.get('follower_id')
+        followee_id = data.get('followee_id')
 
         with connection.cursor() as cursor:
             # Check if the user is already being followed
@@ -74,14 +80,12 @@ def follow_user(request):
 @csrf_exempt
 def list_followees(request):
     """Returns a list of followees for a given user."""
-    if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
         with connection.cursor() as cursor:
             # Execute the ListFollowees stored procedure
             cursor.execute("EXEC uni_tasks.ListFollowees @usr_id=%s", [user_id])
             result = cursor.fetchall()
-
         followees = [{'id': row[0], 'name': row[1], 'uni_id': row[2]} for row in result]
         return JsonResponse(followees, safe=False)
 
@@ -107,23 +111,26 @@ def list_followers(request):
 @csrf_exempt
 def list_tasks(request):
     """Returns a list of tasks for a given user."""
-    if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        is_public = request.POST.get('is_public', False)
-        is_public = bool(int(is_public)) if is_public.isdigit() else False
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
+        is_public = request.GET.get('is_public', '0')
+
         
         with connection.cursor() as cursor:
             # Execute the ListTasks stored procedure
             cursor.execute("EXEC uni_tasks.ListTasks @usr_id=%s, @is_public=%s", [user_id, is_public])
+
             result = cursor.fetchall()
         
+
         tasks = []
-        columns = [column[0] for column in cursor.description]
-        
-        for row in result:
-            task = dict(zip(columns, row))
-            tasks.append(task)
-        
+        if result:
+            columns = ['task_id', 'task_name', 'class_name', 'description', 'group', 'status', 'start_date', 'end_date', 'priority_lvl']
+
+            for row in result:
+                task = dict(zip(columns, row))
+                tasks.append(task)
+    
         return JsonResponse(tasks, safe=False)
     
     return JsonResponse({'error': 'Invalid request method.'})
@@ -132,16 +139,18 @@ def list_tasks(request):
 def create_task(request):
     """Creates a new task."""
     if request.method == 'POST':
-        task_name = request.POST.get('task_name')
-        class_id = int(request.POST.get('class_id'))
-        description = request.POST.get('description')
-        group = request.POST.get('group')
-        status = request.POST.get('status')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        priority_lvl = int(request.POST.get('priority_lvl'))
-        is_public = bool(int(request.POST.get('is_public')))
-        usr_id = int(request.POST.get('usr_id'))
+        data = json.loads(request.body.decode('utf-8'))
+
+        task_name = data.get('task_name')
+        class_id = data.get('class_id')
+        description = data.get('description')
+        group = data.get('group')
+        status = data.get('status')
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+        priority_lvl = data.get('priority_lvl')
+        is_public = data.get('is_public')
+        usr_id = data.get('usr_id')
 
         with connection.cursor() as cursor:
             # Execute the NewTask stored procedure
@@ -154,10 +163,15 @@ def create_task(request):
 
 @csrf_exempt
 def search_user(request):
-    """Searches for a user by name or uni_id."""
+    """
+    Searches for a user by name.
+    Returns users and whether or not the current user can follow them.
+    """
     if request.method == 'POST':
-        user_name = request.POST.get('user_name')
-        usr_id = request.POST.get('usr_id')
+        data = json.loads(request.body.decode('utf-8'))
+
+        user_name = data.get('user_name')
+        usr_id = data.get('usr_id')
         
         with connection.cursor() as cursor:
             # Execute the SearchUser stored procedure
@@ -179,19 +193,21 @@ def search_user(request):
     return JsonResponse({'error': 'Invalid request method.'})
 
 @csrf_exempt
-def update_task_view(request):
+def update_task(request):
     """Updates a task."""
     if request.method == 'POST':
-        task_id = request.POST.get('task_id')
-        task_name = request.POST.get('task_name')
-        class_id = request.POST.get('class_id')
-        description = request.POST.get('description')
-        group = request.POST.get('group')
-        status = request.POST.get('status')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        priority_lvl = request.POST.get('priority_lvl')
-        is_public = request.POST.get('is_public')
+        data = json.loads(request.body.decode('utf-8'))
+
+        task_id = data.get('task_id')
+        task_name = data.get('task_name')
+        class_id = data.get('class_id')
+        description = data.get('description')
+        group = data.get('group')
+        status = data.get('status')
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+        priority_lvl = data.get('priority_lvl')
+        is_public = data.get('is_public')
 
         with connection.cursor() as cursor:
             # Execute the UpdateTask stored procedure
@@ -203,39 +219,120 @@ def update_task_view(request):
     return JsonResponse({'error': 'Invalid request method.'})
 
 @csrf_exempt
-def register_user_view(request):
+def register_user(request):
     """Registers a new user."""
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        data = json.loads(request.body.decode('utf-8'))
 
-        with connection.cursor() as cursor:
-            # Execute the RegisterUser stored procedure
-            cursor.execute("EXEC uni_tasks.RegisterUser @username=%s, @password=%s, @register_result=OUTPUT",
-                           [username, password])
+        username = data.get('username')
+        password = data.get('password')
 
-            # Get the value of the output parameter
-            register_result = cursor.output('register_result')
+        with transaction.atomic():
+            with connection.cursor() as cursor:
+                # Execute the RegisterUser stored procedure with output parameters
+                cursor.execute("""
+                    DECLARE @register_result BIT;
+                    DECLARE @user_id INT;
+                    EXEC uni_tasks.RegisterUser @username=%s, @password=%s, @register_result = @register_result OUTPUT, @user_id = @user_id OUTPUT;
+                """, [username, password])
 
-        return JsonResponse({'message': register_result})
+                # Fetch the output values
+                result = cursor.fetchone()
+                register_result_value = result.register_result
+                user_id = result.user_id
+
+        return JsonResponse({'status': register_result_value, 'user_id': user_id})
     
     return JsonResponse({'error': 'Invalid request method.'})
 
 @csrf_exempt
-def login_user_view(request):
+def login_user(request):
     """Logs in a user."""
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        data = json.loads(request.body.decode('utf-8'))
+
+        username = data.get('username')
+        password = data.get('password')
 
         with connection.cursor() as cursor:
-            # Execute the LoginUser stored procedure
-            cursor.execute("EXEC uni_tasks.LoginUser @username=%s, @password=%s, @login_result=OUTPUT",
-                           [username, password])
+            # Execute the LoginUser stored procedure with output parameter
+            cursor.execute("""
+                DECLARE @login_result BIT;
+                EXEC uni_tasks.LoginUser @username=%s, @password=%s, @login_result = @login_result OUTPUT;
+                SELECT @login_result;
+            """, [username, password])
+            
+            # Fetch the output value
+            login_result_value = cursor.fetchone()[0]
 
-            # Get the value of the output parameter
-            login_result = cursor.output('login_result')
-
-        return JsonResponse({'message': login_result})
+        return JsonResponse({'status': login_result_value})
     
+    return JsonResponse({'error': 'Invalid request method.'})
+
+# DEBUG
+@csrf_exempt
+def list_all_tasks(request):
+    """Returns a list of all tasks."""
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            # Execute the ListAllTasks stored procedure
+            cursor.execute("SELECT * FROM uni_tasks.task")
+
+            result = cursor.fetchall()
+
+        return JsonResponse(result, safe=False)
+
+    return JsonResponse({'error': 'Invalid request method.'})
+
+@csrf_exempt
+def list_all_users(request):
+    """Returns a list of all users."""
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            # Execute the ListAllUsers stored procedure
+            cursor.execute("SELECT * FROM uni_tasks._user")
+
+            result = cursor.fetchall()
+
+        users = []
+        if result:
+            columns = ['user_id', 'name', 'pass_hash', 'uni_id']
+
+            # dont return pass_hash
+            for row in result:
+                user = dict(zip(columns, row))
+                del user['pass_hash']
+                users.append(user)
+    
+        return JsonResponse(users, safe=False)
+
+
+    return JsonResponse({'error': 'Invalid request method.'})
+
+@csrf_exempt
+def list_all_classes(request):
+    """Returns a list of all classes."""
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            # Execute the ListAllClasses stored procedure
+            cursor.execute("SELECT * FROM uni_tasks.class")
+
+            result = cursor.fetchall()
+
+        return JsonResponse(result, safe=False)
+
+    return JsonResponse({'error': 'Invalid request method.'})
+
+@csrf_exempt
+def list_all_associations(request):
+    """Returns a list of all associations."""
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            # Execute the ListAllAssociations stored procedure
+            cursor.execute("SELECT * FROM uni_tasks.assigned_to")
+
+            result = cursor.fetchall()
+
+        return JsonResponse(result, safe=False)
+
     return JsonResponse({'error': 'Invalid request method.'})

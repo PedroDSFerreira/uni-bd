@@ -4,7 +4,7 @@ GO
 -- TABLES
 
 CREATE TABLE uni_tasks.course(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[name] [varchar](64) NOT NULL,
 	[field] [varchar](64),
 	PRIMARY KEY ([id])
@@ -18,7 +18,7 @@ CREATE TABLE uni_tasks.country(
 );
 
 CREATE TABLE uni_tasks.university(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[name] [varchar](64) NOT NULL,
 	[logo_path] [varchar](256),
 	[ctry_code] [varchar](8) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE uni_tasks.offered_at(
 );
 
 CREATE TABLE uni_tasks._user(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[name] [varchar](128) NOT NULL,
 	[password_hash] [varbinary](256) NOT NULL,
 	[uni_id] [int],
@@ -44,7 +44,7 @@ CREATE TABLE uni_tasks._user(
 );
 
 CREATE TABLE uni_tasks.class(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[name] [varchar](64) NOT NULL,
 	[crs_id] [int] NOT NULL,
 	[prof_id] [int],
@@ -62,7 +62,7 @@ CREATE TABLE uni_tasks.follows(
 );
 
 CREATE TABLE uni_tasks.assignment(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[grade] [numeric],
 	[date] [date],
 	[usr_id] [int] NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE uni_tasks.enrolled_in(
 );
 
 CREATE TABLE uni_tasks.task(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[name] [varchar](32) NOT NULL,
 	[cl_id] [int],
 	[is_deleted] [bit] NOT NULL DEFAULT 0,
@@ -104,7 +104,7 @@ CREATE TABLE uni_tasks.attributes(
 );
 
 CREATE TABLE uni_tasks._resource(
-	[id] [int] NOT NULL CHECK([id]>0),
+	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[path] [varchar](256) NOT NULL,
 	[type] [varchar](16),
 	[cl_id] [int] NOT NULL,
@@ -124,12 +124,12 @@ GO
 -- INSERTS
 
 -- Dummy data for uni_tasks.course
-INSERT INTO uni_tasks.course (id, name, field) VALUES
-  (1, 'Mathematics', 'Science'),
-  (2, 'Computer Science', 'Technology'),
-  (3, 'History', 'Humanities'),
-  (4, 'Physics', 'Science'),
-  (5, 'English', 'Humanities');
+INSERT INTO uni_tasks.course (name, field) VALUES
+  ('Mathematics', 'Science'),
+  ('Computer Science', 'Technology'),
+  ('History', 'Humanities'),
+  ('Physics', 'Science'),
+  ('English', 'Humanities');
 
 -- Dummy data for uni_tasks.country
 INSERT INTO uni_tasks.country (code, name, flag) VALUES
@@ -140,12 +140,12 @@ INSERT INTO uni_tasks.country (code, name, flag) VALUES
   ('DE', 'Germany', 'de_flag.png');
 
 -- Dummy data for uni_tasks.university
-INSERT INTO uni_tasks.university (id, name, logo_path, ctry_code) VALUES
-  (1, 'Harvard University', 'harvard_logo.png', 'US'),
-  (2, 'University of Oxford', 'oxford_logo.png', 'UK'),
-  (3, 'University of Melbourne', 'melbourne_logo.png', 'AU'),
-  (4, 'University of Toronto', 'toronto_logo.png', 'CA'),
-  (5, 'Technical University of Munich', 'tum_logo.png', 'DE');
+INSERT INTO uni_tasks.university (name, logo_path, ctry_code) VALUES
+  ('Harvard University', 'harvard_logo.png', 'US'),
+  ('University of Oxford', 'oxford_logo.png', 'UK'),
+  ('University of Melbourne', 'melbourne_logo.png', 'AU'),
+  ('University of Toronto', 'toronto_logo.png', 'CA'),
+  ('Technical University of Munich', 'tum_logo.png', 'DE');
 
 -- Dummy data for uni_tasks.offered_at
 INSERT INTO uni_tasks.offered_at (uni_id, crs_id) VALUES
@@ -156,20 +156,20 @@ INSERT INTO uni_tasks.offered_at (uni_id, crs_id) VALUES
   (3, 5);
 
 -- Dummy data for uni_tasks._user
-INSERT INTO uni_tasks._user (id, name, password_hash, uni_id) VALUES
-  (1, 'John Doe',  HASHBYTES('SHA2_256','password_1'), 1),
-  (2, 'Jane Smith',  HASHBYTES('SHA2_256','password_2'), 2),
-  (3, 'Michael Johnson',  HASHBYTES('SHA2_256','password_3'), 3),
-  (4, 'Emily Wilson',  HASHBYTES('SHA2_256','password_4'), 4),
-  (5, 'David Lee',  HASHBYTES('SHA2_256','password_5'), 5);
+INSERT INTO uni_tasks._user (name, password_hash, uni_id) VALUES
+  ('John Doe',  HASHBYTES('SHA2_256','password_1'), 1),
+  ('Jane Smith',  HASHBYTES('SHA2_256','password_2'), 2),
+  ('Michael Johnson',  HASHBYTES('SHA2_256','password_3'), 3),
+  ('Emily Wilson',  HASHBYTES('SHA2_256','password_4'), 4),
+  ('David Lee',  HASHBYTES('SHA2_256','password_5'), 5);
 
 -- Dummy data for uni_tasks.class
-INSERT INTO uni_tasks.class (id, name, crs_id, prof_id) VALUES
-  (1, 'Algebra 101', 1, 1),
-  (2, 'Introduction to Programming', 2, 2),
-  (3, 'World History', 3, 3),
-  (4, 'Quantum Mechanics', 4, 4),
-  (5, 'Shakespearean Literature', 5, 5);
+INSERT INTO uni_tasks.class (name, crs_id, prof_id) VALUES
+  ('Algebra 101', 1, 1),
+  ('Introduction to Programming', 2, 2),
+  ('World History', 3, 3),
+  ('Quantum Mechanics', 4, 4),
+  ('Shakespearean Literature', 5, 5);
 
 -- Dummy data for uni_tasks.follows
 INSERT INTO uni_tasks.follows (usr_id_follower, usr_id_followee) VALUES
@@ -180,12 +180,12 @@ INSERT INTO uni_tasks.follows (usr_id_follower, usr_id_followee) VALUES
   (3, 4);
 
 -- Dummy data for uni_tasks.assignment
-INSERT INTO uni_tasks.assignment (id, grade, date, usr_id, cl_id) VALUES
-  (1, 90, '2023-05-15', 1, 1),
-  (2, 80, '2023-05-16', 2, 2),
-  (3, 95, '2023-05-17', 3, 3),
-  (4, 88, '2023-05-18', 4, 4),
-  (5, 92, '2023-05-19', 5, 5);
+INSERT INTO uni_tasks.assignment (grade, date, usr_id, cl_id) VALUES
+  (90, '2023-05-15', 1, 1),
+  (80, '2023-05-16', 2, 2),
+  (95, '2023-05-17', 3, 3),
+  (88, '2023-05-18', 4, 4),
+  (92, '2023-05-19', 5, 5);
 
 -- Dummy data for uni_tasks.enrolled_in
 INSERT INTO uni_tasks.enrolled_in (grade, usr_id, cl_id) VALUES
@@ -196,12 +196,12 @@ INSERT INTO uni_tasks.enrolled_in (grade, usr_id, cl_id) VALUES
   (14, 5, 5);
 
 -- Dummy data for uni_tasks.task
-INSERT INTO uni_tasks.task (id, name, cl_id) VALUES
-  (1, 'Homework 1', 1),
-  (2, 'Lab Exercise 1', 2),
-  (3, 'Research Paper', 3),
-  (4, 'Problem Set 2', 4),
-  (5, 'Essay Assignment', 5);
+INSERT INTO uni_tasks.task (name, cl_id) VALUES
+  ('Homework 1', 1),
+  ('Lab Exercise 1', 2),
+  ('Research Paper', 3),
+  ('Problem Set 2', 4),
+  ('Essay Assignment', 5);
 
 -- Dummy data for uni_tasks.attributes
 INSERT INTO uni_tasks.attributes (t_id, description, [group], status, start_date, end_date, priority_lvl, is_public) VALUES
@@ -212,12 +212,12 @@ INSERT INTO uni_tasks.attributes (t_id, description, [group], status, start_date
   (5, 'Analyzing Shakespearean sonnets', 'Essay', 'Completed', '2023-05-24', '2023-05-29', 1, 1);
 
 -- Dummy data for uni_tasks._resource
-INSERT INTO uni_tasks._resource (id, path, type, cl_id) VALUES
-  (1, 'resource1.pdf', 'PDF', 1),
-  (2, 'resource2.docx', 'Document', 2),
-  (3, 'resource3.jpg', 'Image', 3),
-  (4, 'resource4.pptx', 'Presentation', 4),
-  (5, 'resource5.txt', 'Text', 5);
+INSERT INTO uni_tasks._resource (path, type, cl_id) VALUES
+  ('resource1.pdf', 'PDF', 1),
+  ('resource2.docx', 'Document', 2),
+  ('resource3.jpg', 'Image', 3),
+  ('resource4.pptx', 'Presentation', 4),
+  ('resource5.txt', 'Text', 5);
 
 -- Dummy data for uni_tasks.assigned_to
 INSERT INTO uni_tasks.assigned_to (usr_id, t_id) VALUES
@@ -299,9 +299,8 @@ BEGIN
         SELECT t.id AS task_id, t.name AS task_name, c.name AS class_name, a.description, a.[group], a.[status], a.start_date, a.end_date, a.priority_lvl
         FROM uni_tasks.task t
         INNER JOIN uni_tasks.class c ON t.cl_id = c.id
-        INNER JOIN uni_tasks.attributes a ON t.id = a.t_id
+        LEFT JOIN uni_tasks.attributes a ON t.id = a.t_id AND a.is_public = 1
         WHERE t.cl_id IN (SELECT cl_id FROM uni_tasks.enrolled_in WHERE usr_id = @usr_id)
-            AND a.is_public = 1
         ORDER BY c.name;
     END
     ELSE
@@ -325,7 +324,7 @@ GO
 CREATE PROCEDURE uni_tasks.LoginUser
     @username VARCHAR(128),
     @password VARCHAR(128),
-    @login_result VARCHAR(50) OUTPUT
+    @login_result BIT OUTPUT
 AS
 BEGIN
     -- Hash the provided password
@@ -336,12 +335,12 @@ BEGIN
     IF EXISTS (SELECT 1 FROM uni_tasks._user WHERE [name] = @username AND password_hash = @passwordHash)
     BEGIN
         -- User authentication successful
-        SET @login_result = 'Login successful';
+        SET @login_result = 1;
     END
     ELSE
     BEGIN
         -- User authentication failed
-        SET @login_result = 'Invalid username or password';
+        SET @login_result = 0;
     END;
 END;
 GO
@@ -366,6 +365,7 @@ BEGIN
 
     -- Get the ID of the newly inserted task
     SET @task_id = SCOPE_IDENTITY();
+    PRINT 'Task ID: ' + CONVERT(VARCHAR(10), @task_id);
 
     -- Insert attributes for the task
     INSERT INTO uni_tasks.attributes (t_id, description, [group], [status], start_date, end_date, priority_lvl, is_public)
@@ -378,7 +378,8 @@ GO
 CREATE PROCEDURE uni_tasks.RegisterUser
     @username VARCHAR(128),
     @password VARCHAR(128),
-    @register_result VARCHAR(50) OUTPUT
+    @register_result BIT OUTPUT,
+    @user_id INT OUTPUT
 AS
 BEGIN
     -- Hash the password
@@ -389,8 +390,12 @@ BEGIN
     INSERT INTO uni_tasks._user ([name], password_hash)
     VALUES (@username, @passwordHash);
 
-    -- Set the success message
-    SET @register_result = 'User registered successfully.';
+    -- Set the success message and return the generated user ID
+    SET @register_result = 1;
+    SET @user_id = SCOPE_IDENTITY();
+
+    -- Return the output parameters
+    SELECT @register_result AS register_result, @user_id AS user_id;
 END
 GO
 CREATE PROCEDURE uni_tasks.SearchUser

@@ -42,7 +42,7 @@ To run the server, you need to have the following software installed:
     docker compose up
     ```
     
-    Now wait for 90 seconds for the containers to start up, and the DB to be seeded with data.
+    Now wait for 60 seconds for the containers to start up, and the DB to be seeded with data.
         
 4. Once everything is up and running, you can access the web platform in your browser at **[http://localhost:8000/](http://localhost:8000/)**.
 
@@ -116,14 +116,9 @@ To run the server, you need to have the following software installed:
      ```
 
 5. `/list_followees`
-   - Request method: POST
+   - Request method: GET
    - Description: Retrieves a list of followees for a given user.
-   - Example request:
-     ```json
-     {
-       "user_id": "123"
-     }
-     ```
+   - Example request: `/list_followees?user_id=123`
    - Example response:
      ```json
      [
@@ -215,7 +210,7 @@ To run the server, you need to have the following software installed:
 
 9. `/search_user`
    - Request method: POST
-   - Description: Searches for a user by name or uni_id.
+   - Description: Searches for a user by name. Returns users and whether or not the current user can follow them.
    - Example request:
      ```json
      {
@@ -241,7 +236,7 @@ To run the server, you need to have the following software installed:
      ]
      ```
 
-10. `/update_task_view`
+10. `/update_task`
     - Request method: POST
     - Description: Updates a task.
     - Example request:
@@ -266,7 +261,7 @@ To run the server, you need to have the following software installed:
       }
       ```
 
-11. `/register_user_view`
+11. `/register_user`
     - Request method: POST
     - Description: Registers a new user.
     - Example request:
@@ -279,11 +274,12 @@ To run the server, you need to have the following software installed:
     - Example response:
       ```json
       {
-        "message": "User registered successfully."
+        "status": true,
+        "user_id": 123
       }
       ```
 
-12. `/login_user_view`
+12. `/login_user`
     - Request method: POST
     - Description: Logs in a user.
     - Example request:
@@ -296,6 +292,6 @@ To run the server, you need to have the following software installed:
     - Example response:
       ```json
       {
-        "message": "Login successful."
+        "status": true,
       }
       ```
