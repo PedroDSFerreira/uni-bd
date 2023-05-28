@@ -51,7 +51,7 @@ To run the server, you need to have the following software installed:
 1. `/list_universities`
    - Request method: GET
    - Description: Retrieves a list of universities from the database.
-   - Example response (JSON):
+   - Example response:
      ```json
      [
        {
@@ -68,13 +68,13 @@ To run the server, you need to have the following software installed:
 2. `/delete_task`
    - Request method: POST
    - Description: Soft deletes a task from the database.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "task_id": "123"
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      {
        "message": "Task deleted successfully."
@@ -84,14 +84,14 @@ To run the server, you need to have the following software installed:
 3. `/associate_task_with_user`
    - Request method: POST
    - Description: Associates a task with a user.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "task_id": "123",
        "user_id": "456"
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      {
        "message": "Task associated with user successfully."
@@ -101,14 +101,14 @@ To run the server, you need to have the following software installed:
 4. `/follow_user`
    - Request method: POST
    - Description: Follows a user.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "follower_id": "123",
        "followee_id": "456"
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      {
        "message": "User followed successfully."
@@ -118,13 +118,13 @@ To run the server, you need to have the following software installed:
 5. `/list_followees`
    - Request method: POST
    - Description: Retrieves a list of followees for a given user.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "user_id": "123"
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      [
        {
@@ -144,7 +144,7 @@ To run the server, you need to have the following software installed:
    - Request method: GET
    - Description: Retrieves a list of followers for a given user.
    - Example request: `/list_followers?user_id=123`
-   - Example response (JSON):
+   - Example response:
      ```json
      [
        {
@@ -163,14 +163,14 @@ To run the server, you need to have the following software installed:
 7. `/list_tasks`
    - Request method: POST
    - Description: Retrieves a list of tasks for a given user.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "user_id": "123",
        "is_public": "1"
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      [
        {
@@ -191,7 +191,7 @@ To run the server, you need to have the following software installed:
 8. `/create_task`
    - Request method: POST
    - Description: Creates a new task.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "task_name": "New Task",
@@ -206,7 +206,7 @@ To run the server, you need to have the following software installed:
        "usr_id": 456
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      {
        "message": "Task created successfully."
@@ -216,14 +216,14 @@ To run the server, you need to have the following software installed:
 9. `/search_user`
    - Request method: POST
    - Description: Searches for a user by name or uni_id.
-   - Example request (JSON):
+   - Example request:
      ```json
      {
        "user_name": "John",
        "usr_id": "123"
      }
      ```
-   - Example response (JSON):
+   - Example response:
      ```json
      [
        {
@@ -244,7 +244,7 @@ To run the server, you need to have the following software installed:
 10. `/update_task_view`
     - Request method: POST
     - Description: Updates a task.
-    - Example request (JSON):
+    - Example request:
       ```json
       {
         "task_id": "123",
@@ -259,7 +259,7 @@ To run the server, you need to have the following software installed:
         "is_public": "0"
       }
       ```
-    - Example response (JSON):
+    - Example response:
       ```json
       {
         "message": "Task updated successfully."
@@ -269,14 +269,14 @@ To run the server, you need to have the following software installed:
 11. `/register_user_view`
     - Request method: POST
     - Description: Registers a new user.
-    - Example request (JSON):
+    - Example request:
       ```json
       {
         "username": "newuser",
         "password": "password123"
       }
       ```
-    - Example response (JSON):
+    - Example response:
       ```json
       {
         "message": "User registered successfully."
@@ -286,14 +286,14 @@ To run the server, you need to have the following software installed:
 12. `/login_user_view`
     - Request method: POST
     - Description: Logs in a user.
-    - Example request (JSON):
+    - Example request:
       ```json
       {
         "username": "existinguser",
         "password": "password123"
       }
       ```
-    - Example response (JSON):
+    - Example response:
       ```json
       {
         "message": "Login successful."
