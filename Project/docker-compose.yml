@@ -22,3 +22,6 @@ services:
       - "8000:8000"
     depends_on:
       - bd
+    volumes:
+      - ./uni_todo:/app
+    user: root

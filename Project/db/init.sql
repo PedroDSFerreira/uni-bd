@@ -479,10 +479,11 @@ CREATE PROCEDURE uni_tasks.ListClasses
     @usr_id INT
 AS
 BEGIN
-    SELECT c.name
+    SELECT c.id, c.name
     FROM uni_tasks.class AS c
     INNER JOIN uni_tasks.course AS cr ON c.crs_id = cr.id
-    INNER JOIN uni_tasks.university AS uni ON cr.id = uni.id
+    INNER JOIN uni_tasks.offered_at AS off ON cr.id = off.crs_id
+    INNER JOIN uni_tasks.university AS uni ON off.uni_id = uni.id
     INNER JOIN uni_tasks._user AS usr ON uni.id = usr.uni_id
     WHERE usr.id = @usr_id;
 END
