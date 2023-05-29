@@ -198,7 +198,7 @@ To run the server, you need to have the following software installed:
        "end_date": "2023-06-05",
        "priority_lvl": 2,
        "is_public": 1,
-       "usr_id": 456
+       "user_id": 456
      }
      ```
    - Example response:
@@ -215,7 +215,7 @@ To run the server, you need to have the following software installed:
      ```json
      {
        "user_name": "John",
-       "usr_id": "123"
+       "user_id": "123"
      }
      ```
    - Example response:
@@ -274,7 +274,6 @@ To run the server, you need to have the following software installed:
     - Example response:
       ```json
       {
-        "status": true,
         "user_id": 123
       }
       ```

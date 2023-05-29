@@ -150,11 +150,11 @@ def create_task(request):
         end_date = data.get('end_date')
         priority_lvl = data.get('priority_lvl')
         is_public = data.get('is_public')
-        usr_id = data.get('usr_id')
+        user_id = data.get('user_id')
 
         with connection.cursor() as cursor:
             # Execute the NewTask stored procedure
-            cursor.execute("EXEC uni_tasks.NewTask @task_name=%s, @class_id=%s, @description=%s, @group=%s, @status=%s, @start_date=%s, @end_date=%s, @priority_lvl=%s, @is_public=%s, @usr_id=%s", [task_name, class_id, description, group, status, start_date, end_date, priority_lvl, is_public, usr_id])
+            cursor.execute("EXEC uni_tasks.NewTask @task_name=%s, @class_id=%s, @description=%s, @group=%s, @status=%s, @start_date=%s, @end_date=%s, @priority_lvl=%s, @is_public=%s, @usr_id=%s", [task_name, class_id, description, group, status, start_date, end_date, priority_lvl, is_public, user_id])
         
         return JsonResponse({'message': 'Task created successfully.'})
     
@@ -171,11 +171,11 @@ def search_user(request):
         data = json.loads(request.body.decode('utf-8'))
 
         user_name = data.get('user_name')
-        usr_id = data.get('usr_id')
+        user_id = data.get('user_id')
         
         with connection.cursor() as cursor:
             # Execute the SearchUser stored procedure
-            cursor.execute("EXEC uni_tasks.SearchUser @user_name=%s, @usr_id=%s", [user_name, usr_id])
+            cursor.execute("EXEC uni_tasks.SearchUser @user_name=%s, @usr_id=%s", [user_name, user_id])
             result = cursor.fetchall()
         
         users = []
@@ -226,22 +226,18 @@ def register_user(request):
 
         username = data.get('username')
         password = data.get('password')
+        uni_id = data.get('uni_id')
 
         with transaction.atomic():
             with connection.cursor() as cursor:
-                # Execute the RegisterUser stored procedure with output parameters
-                cursor.execute("""
-                    DECLARE @register_result BIT;
-                    DECLARE @user_id INT;
-                    EXEC uni_tasks.RegisterUser @username=%s, @password=%s, @register_result = @register_result OUTPUT, @user_id = @user_id OUTPUT;
-                """, [username, password])
+                # Execute the RegisterUser stored procedure
+                cursor.execute("EXEC uni_tasks.RegisterUser @username=%s, @password=%s, @uni_id=%s", [username, password, uni_id])
 
-                # Fetch the output values
-                result = cursor.fetchone()
-                register_result_value = result.register_result
-                user_id = result.user_id
+                # Fetch last inserted user id
+                user_id = cursor.execute("SELECT MAX(id) AS last_user_id FROM uni_tasks._user").fetchone()[0]
 
-        return JsonResponse({'status': register_result_value, 'user_id': user_id})
+
+        return JsonResponse({'user_id': user_id})
     
     return JsonResponse({'error': 'Invalid request method.'})
 

@@ -379,9 +379,7 @@ GO
 CREATE PROCEDURE uni_tasks.RegisterUser
     @username VARCHAR(128),
     @password VARCHAR(128),
-	@uni_id INT,
-    @register_result BIT OUTPUT,
-    @user_id INT OUTPUT
+	@uni_id INT
 AS
 BEGIN
     -- Hash the password
@@ -392,12 +390,8 @@ BEGIN
     INSERT INTO uni_tasks._user ([name], password_hash, uni_id)
     VALUES (@username, @passwordHash, @uni_id);
 
-    -- Set the success message and return the generated user ID
-    SET @register_result = 1;
-    SET @user_id = SCOPE_IDENTITY();
-
-    -- Return the output parameters
-    SELECT @register_result AS register_result, @user_id AS user_id;
+    -- Return the inserted user record
+    SELECT id FROM uni_tasks._user WHERE id = SCOPE_IDENTITY();
 END
 GO
 CREATE PROCEDURE uni_tasks.SearchUser
@@ -405,15 +399,15 @@ CREATE PROCEDURE uni_tasks.SearchUser
     @usr_id INT
 AS
 BEGIN
-	-- based on @usr_id, check which users can follow him
+    -- Based on @usr_id, check which users can follow him
     SELECT u.[id], u.[name], u.[uni_id],
-           CASE
-               WHEN EXISTS (SELECT 1 FROM uni_tasks.follows WHERE [usr_id_followee] = @usr_id AND [usr_id_follower] = u.[id]) THEN 0
-               WHEN u.[id] = @usr_id THEN 0
-               ELSE 1
-           END AS can_follow
+        CASE
+            WHEN EXISTS (SELECT 1 FROM uni_tasks.follows WHERE [usr_id_followee] = @usr_id AND [usr_id_follower] = u.[id]) THEN 0
+            ELSE 1
+        END AS can_follow
     FROM uni_tasks._user u
-    WHERE u.[name] LIKE '%' + @user_name + '%';
+    WHERE u.[id] <> @usr_id -- Exclude the entry with @usr_id
+        AND u.[name] LIKE '%' + @user_name + '%';
 END
 GO
 CREATE PROCEDURE uni_tasks.UpdateTask
