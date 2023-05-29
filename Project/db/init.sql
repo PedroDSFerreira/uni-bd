@@ -201,7 +201,8 @@ INSERT INTO uni_tasks.task (name, cl_id) VALUES
   ('Lab Exercise 1', 2),
   ('Research Paper', 3),
   ('Problem Set 2', 4),
-  ('Essay Assignment', 5);
+  ('Essay Assignment', 2),
+  ('Essay', 5);
 
 -- Dummy data for uni_tasks.attributes
 INSERT INTO uni_tasks.attributes (t_id, description, [group], status, start_date, end_date, priority_lvl, is_public) VALUES
@@ -209,7 +210,8 @@ INSERT INTO uni_tasks.attributes (t_id, description, [group], status, start_date
   (2, 'Implement a sorting algorithm', 'Lab', 'Completed', '2023-05-21', '2023-05-26', 2, 1),
   (3, 'Write a research paper on World War II', 'Research', 'In Progress', '2023-05-22', '2023-05-27', 4, 0),
   (4, 'Solve quantum mechanics problems', 'Homework', 'Pending', '2023-05-23', '2023-05-28', 3, 1),
-  (5, 'Analyzing Shakespearean sonnets', 'Essay', 'Completed', '2023-05-24', '2023-05-29', 1, 1);
+  (5, 'Write an essay on Shakespearean sonnets', 'Essay', 'Completed', '2023-05-24', '2023-05-29', 1, 1),
+  (6, 'Analyzing Shakespearean sonnets', 'Essay', 'Completed', '2023-05-24', '2023-05-29', 1, 1);
 
 -- Dummy data for uni_tasks._resource
 INSERT INTO uni_tasks._resource (path, type, cl_id) VALUES
@@ -225,7 +227,8 @@ INSERT INTO uni_tasks.assigned_to (usr_id, t_id) VALUES
   (2, 2),
   (3, 3),
   (4, 4),
-  (5, 5);
+  (5, 1),
+  (1, 5);
 GO
 
 -- TRIGGERS
