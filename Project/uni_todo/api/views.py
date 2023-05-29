@@ -113,26 +113,17 @@ def list_tasks(request):
     """Returns a list of tasks for a given user."""
     if request.method == 'GET':
         user_id = request.GET.get('user_id')
-        is_public = request.GET.get('is_public', '0')
-
+        is_public = request.GET.get('is_public', 0)
         
         with connection.cursor() as cursor:
             # Execute the ListTasks stored procedure
             cursor.execute("EXEC uni_tasks.ListTasks @usr_id=%s, @is_public=%s", [user_id, is_public])
 
-            result = cursor.fetchall()
-        
+            columns = [col[0] for col in cursor.description]  # Fetch column names
+            tasks = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
-        tasks = []
-        if result:
-            columns = ['task_id', 'task_name', 'class_name', 'description', 'group', 'status', 'start_date', 'end_date', 'priority_lvl']
-
-            for row in result:
-                task = dict(zip(columns, row))
-                tasks.append(task)
-    
         return JsonResponse(tasks, safe=False)
-    
+
     return JsonResponse({'error': 'Invalid request method.'})
 
 @csrf_exempt
@@ -208,6 +199,9 @@ def update_task(request):
         end_date = data.get('end_date')
         priority_lvl = data.get('priority_lvl')
         is_public = data.get('is_public')
+
+        if not task_id:
+            return JsonResponse({'error': 'Task ID is required.'})
 
         with connection.cursor() as cursor:
             # Execute the UpdateTask stored procedure
