@@ -259,70 +259,17 @@ def login_user(request):
     
     return JsonResponse({'error': 'Invalid request method.'})
 
-# DEBUG
 @csrf_exempt
-def list_all_tasks(request):
-    """Returns a list of all tasks."""
+def list_classes(request):
+    """Lists all classes."""
     if request.method == 'GET':
+        user_id = request.GET.get('user_id')
         with connection.cursor() as cursor:
-            # Execute the ListAllTasks stored procedure
-            cursor.execute("SELECT * FROM uni_tasks.task")
+            # Execute the ListClasses stored procedure
+            cursor.execute("EXEC uni_tasks.ListClasses @usr_id=%s", [user_id])
+            columns = [col[0] for col in cursor.description]  # Fetch column names
+            classes = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
-            result = cursor.fetchall()
-
-        return JsonResponse(result, safe=False)
-
-    return JsonResponse({'error': 'Invalid request method.'})
-
-@csrf_exempt
-def list_all_users(request):
-    """Returns a list of all users."""
-    if request.method == 'GET':
-        with connection.cursor() as cursor:
-            # Execute the ListAllUsers stored procedure
-            cursor.execute("SELECT * FROM uni_tasks._user")
-
-            result = cursor.fetchall()
-
-        users = []
-        if result:
-            columns = ['user_id', 'name', 'pass_hash', 'uni_id']
-
-            # dont return pass_hash
-            for row in result:
-                user = dict(zip(columns, row))
-                del user['pass_hash']
-                users.append(user)
+        return JsonResponse(classes, safe=False)
     
-        return JsonResponse(users, safe=False)
-
-
-    return JsonResponse({'error': 'Invalid request method.'})
-
-@csrf_exempt
-def list_all_classes(request):
-    """Returns a list of all classes."""
-    if request.method == 'GET':
-        with connection.cursor() as cursor:
-            # Execute the ListAllClasses stored procedure
-            cursor.execute("SELECT * FROM uni_tasks.class")
-
-            result = cursor.fetchall()
-
-        return JsonResponse(result, safe=False)
-
-    return JsonResponse({'error': 'Invalid request method.'})
-
-@csrf_exempt
-def list_all_associations(request):
-    """Returns a list of all associations."""
-    if request.method == 'GET':
-        with connection.cursor() as cursor:
-            # Execute the ListAllAssociations stored procedure
-            cursor.execute("SELECT * FROM uni_tasks.assigned_to")
-
-            result = cursor.fetchall()
-
-        return JsonResponse(result, safe=False)
-
     return JsonResponse({'error': 'Invalid request method.'})
