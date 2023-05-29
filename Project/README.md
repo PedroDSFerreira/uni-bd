@@ -156,15 +156,9 @@ To run the server, you need to have the following software installed:
      ```
 
 7. `/list_tasks`
-   - Request method: POST
+   - Request method: GET
    - Description: Retrieves a list of tasks for a given user.
-   - Example request:
-     ```json
-     {
-       "user_id": "123",
-       "is_public": "1"
-     }
-     ```
+   - Example request: `/list_tasks?user_id=1&is_public=0`
    - Example response:
      ```json
      [
