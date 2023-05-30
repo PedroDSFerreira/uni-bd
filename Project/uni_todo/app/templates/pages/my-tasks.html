@@ -38,30 +38,70 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">New applicant</h5>
+                <h5 class="modal-title" id="createModalLabel">New task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form id="create">
+                    <!-- 
+                        Task Name (text)
+                        Description (text)
+                        Class (select)
+                        Group (name)
+                        Start Date (date)
+                        End Date (date)
+                        Priority (select)
+                        Status (select)
+                        isPublic (checkbox)
+                     -->
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" required placeholder="Name">
+                        <input id="createName" type="text" class="form-control" name="name" required placeholder="Name">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="phone_number" pattern="[0-9]+" required placeholder="Phone Number">
+                        <input id="createDescription" type="text" class="form-control" name="description" required placeholder="Description">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" required placeholder="Email">
+                        <select id="createClass" class="form-control" name="class" required>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="roles">Roles:</label>
-                        <div id="create-modal-roles" class="form-check"></div>
+                        <input id="createGroup" type="text" class="form-control" name="group" placeholder="Group">
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Save</button>
+                    <div class="form-group">
+                        <input id="createStartDate" type="date" class="form-control" name="start_date" placeholder="Start Date">
                     </div>
+                    <div class="form-group">
+                        <input id="createEndDate" type="date" class="form-control" name="end_date" placeholder="End Date">
+                    </div>
+                    <div class="form-group">
+                        <select id="createPriority" class="form-control" name="priority" required>
+                            <option value="" disabled selected>Select a priority</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="createStatus" class="form-control" name="status" required>
+                            <option value="" disabled selected>Select a status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="is_public">Public:</label>
+                        <input id="createIsPublic" type="checkbox" class="form-control" name="is_public" required placeholder="isPublic">
+                    </div>
+
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="createSaveBtn" class="btn btn-success">Create</button>
             </div>
         </div>
     </div>
@@ -71,7 +111,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit applicant</h5>
+                <h5 class="modal-title" id="editModalLabel">Edit task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -100,13 +140,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input id="editGroup" type="text" class="form-control" name="group" required placeholder="Group">
+                        <input id="editGroup" type="text" class="form-control" name="group" placeholder="Group">
                     </div>
                     <div class="form-group">
-                        <input id="editStartDate" type="date" class="form-control" name="start_date" required placeholder="Start Date">
+                        <input id="editStartDate" type="date" class="form-control" name="start_date" placeholder="Start Date">
                     </div>
                     <div class="form-group">
-                        <input id="editEndDate" type="date" class="form-control" name="end_date" required placeholder="End Date">
+                        <input id="editEndDate" type="date" class="form-control" name="end_date" placeholder="End Date">
                     </div>
                     <div class="form-group">
                         <select id="editPriority" class="form-control" name="priority" required>
@@ -132,7 +172,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="saveChangesBtn" class="btn btn-success">Save Changes</button>
+                <button type="button" id="editSaveBtn" class="btn btn-success">Save Changes</button>
             </div>
         </div>
     </div>

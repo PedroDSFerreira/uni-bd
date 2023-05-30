@@ -6,6 +6,7 @@ urlpatterns = [
     path('delete_task', views.delete_task, name='delete_task'),
     path('associate_task_with_user', views.associate_task_with_user, name='associate_task_with_user'),
     path('follow_user', views.follow_user, name='follow_user'),
+    path('unfollow_user', views.unfollow_user, name='unfollow_user'),
     path('list_followees', views.list_followees, name='list_followees'),
     path('list_followers', views.list_followers, name='list_followers'),
     path('list_tasks', views.list_tasks, name='list_tasks'),

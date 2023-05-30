@@ -76,6 +76,30 @@ def follow_user(request):
     
     return JsonResponse({'error': 'Invalid request method.'})
 
+@csrf_exempt
+def unfollow_user(request):
+    """Unfollows a user."""
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+
+        follower_id = data.get('follower_id')
+        followee_id = data.get('followee_id')
+
+        with connection.cursor() as cursor:
+            # Check if the user is already being followed
+            cursor.execute("SELECT 1 FROM uni_tasks.follows WHERE usr_id_follower = %s AND usr_id_followee = %s",
+                           [follower_id, followee_id])
+            if cursor.fetchone() is not None:
+                # User is being followed, perform the unfollow operation
+                cursor.execute("EXEC uni_tasks.UnfollowUser @follower_id=%s, @followee_id=%s",
+                               [follower_id, followee_id])
+                message = 'User unfollowed successfully.'
+            else:
+                message = 'User is not being followed.'
+        
+        return JsonResponse({'message': message})
+    
+    return JsonResponse({'error': 'Invalid request method.'})
 
 @csrf_exempt
 def list_followees(request):

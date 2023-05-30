@@ -5,9 +5,7 @@ $(document).ready(function() {
         url: '/api/list_classes?user_id=' + user_id,
         method: 'GET',
         success: function(response) {
-            console.log(response);
             fillClasses(response);
-
         },
         error: function(xhr, status, error) {
             alert('Error: ' + xhr.responseJSON.name[0]);
@@ -34,7 +32,7 @@ $(document).ready(function() {
         // Set the value of the input field in the modal
         modal.find('#editName').val(rowValues[0]);
         modal.find('#editDescription').val(rowValues[1]);
-        modal.find('#editClass').val(rowValues[2]);
+        // modal.find('#editClass').val(rowValues[2]);  TODO
         modal.find('#editGroup').val(rowValues[3]);
         modal.find('#editStartDate').val(rowValues[4]);
         modal.find('#editEndDate').val(rowValues[5]);
@@ -42,17 +40,18 @@ $(document).ready(function() {
         modal.find('#editStatus').val(rowValues[7]);
         
         
-        modal.find('#saveChangesBtn').click(function() {
+        modal.find('#editSaveBtn').click(function(e) {
+            e.preventDefault();
             var updatedTaskName = modal.find('#editName').val();
             var updatedDescription = modal.find('#editDescription').val();
-            var updatedClass = modal.find('#editClass').val();
+            // var updatedClass = modal.find('#editClass').val(); TODO
             var updatedGroup = modal.find('#editGroup').val();
             var updatedStartDate = modal.find('#editStartDate').val();
             var updatedEndDate = modal.find('#editEndDate').val();
             var updatedPriority = modal.find('#editPriority').val();
             var updatedStatus = modal.find('#editStatus').val();
             var updatedIsPublic = modal.find('#editIsPublic').val();
-            console.log(updatedIsPublic);
+
             if (updatedIsPublic == "on") {
                 updatedIsPublic = true;
             }
@@ -64,7 +63,7 @@ $(document).ready(function() {
                 "user_id": user_id,
                 "task_name": updatedTaskName,
                 "description": updatedDescription,
-                "class_name": updatedClass,
+                "class_id": 1,
                 "group": updatedGroup,
                 "start_date": updatedStartDate,
                 "end_date": updatedEndDate,
@@ -72,11 +71,47 @@ $(document).ready(function() {
                 "status": updatedStatus,
                 "is_public": updatedIsPublic
             }
-            console.log(newData);
 
             updateTask(JSON.stringify(newData));
-          
-          
+        });
+      });
+
+      $('#createModal').on('show.bs.modal', function(event) {
+        var modal = $(this);
+        modal.find('#createSaveBtn').click(function(e) {
+            e.preventDefault();
+            var createTaskName = modal.find('#createName').val();
+            var createDescription = modal.find('#createDescription').val();
+            // var createClass = modal.find('#createClass').val(); TODO
+            var createGroup = modal.find('#createGroup').val();
+            var createStartDate = modal.find('#createStartDate').val();
+            var createEndDate = modal.find('#createEndDate').val();
+            var createPriority = modal.find('#createPriority').val();
+            var createStatus = modal.find('#createStatus').val();
+            var createIsPublic = modal.find('#createIsPublic').val();
+
+            if (createIsPublic == "on") {
+                createIsPublic = true;
+            }
+            else {
+                createIsPublic = false;
+            }
+
+
+            var newData = {
+                "user_id": user_id,
+                "task_name": createTaskName,
+                "description": createDescription,
+                "class_id": 1,
+                "group": createGroup,
+                "start_date": createStartDate,
+                "end_date": createEndDate,
+                "priority_lvl": createPriority,
+                "status": createStatus,
+                "is_public": createIsPublic
+            }
+            console.log(newData);
+            createTask(JSON.stringify(newData));
         });
       });
 });
@@ -89,7 +124,7 @@ function fillTable(response) {
     if (response.length === 0) {
         tbody.append(
             `<tr>
-                <td colspan="9">No data found</td>
+                <td colspan="9">No tasks found</td>
             </tr>`
         );
     } else {
@@ -146,7 +181,7 @@ function updateTask(data) {
         data: data,
         contentType: 'application/json',
         success: function(response) {
-            // window.location.reload();
+            window.location.reload();
         },
         error: function(xhr, status, error) {
             alert('Error: ' + xhr.responseJSON.name[0]);
@@ -191,3 +226,17 @@ function fillClasses(response) {
     }
 }
 
+function createTask(data) {
+    $.ajax({
+        url: '/api/create_task',
+        method: 'POST',
+        data: data,
+        contentType: 'application/json',
+        success: function(response) {
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            alert('Error: ' + xhr.responseJSON.name[0]);
+        }
+    });
+}

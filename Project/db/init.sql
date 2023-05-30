@@ -274,6 +274,15 @@ BEGIN
 
 END
 GO
+CREATE PROCEDURE uni_tasks.UnfollowUser
+    @follower_id INT,
+    @followee_id INT
+AS
+BEGIN
+    DELETE FROM uni_tasks.follows
+    WHERE usr_id_follower = @follower_id AND usr_id_followee = @followee_id;
+END
+GO
 CREATE PROCEDURE uni_tasks.ListFollowees
     @usr_id INT
 AS
@@ -426,10 +435,10 @@ CREATE PROCEDURE uni_tasks.SearchUser
     @usr_id INT
 AS
 BEGIN
-    -- Based on @usr_id, check which users can follow him
+    -- Based on @usr_id, check which users he can follow
     SELECT u.[id], u.[name], u.[uni_id],
         CASE
-            WHEN EXISTS (SELECT 1 FROM uni_tasks.follows WHERE [usr_id_followee] = @usr_id AND [usr_id_follower] = u.[id]) THEN 0
+            WHEN EXISTS (SELECT 1 FROM uni_tasks.follows WHERE [usr_id_followee] = u.[id] AND [usr_id_follower] = @usr_id) THEN 0
             ELSE 1
         END AS can_follow
     FROM uni_tasks._user u
@@ -479,11 +488,15 @@ CREATE PROCEDURE uni_tasks.ListClasses
     @usr_id INT
 AS
 BEGIN
-    SELECT c.id, c.name
-    FROM uni_tasks.class AS c
-    INNER JOIN uni_tasks.course AS cr ON c.crs_id = cr.id
-    INNER JOIN uni_tasks.offered_at AS offered ON cr.id = offered.crs_id
-    INNER JOIN uni_tasks.university AS uni ON offered.uni_id = uni.id
-    INNER JOIN uni_tasks._user AS usr ON uni.id = usr.uni_id
-    WHERE usr.id = @usr_id;
+    SELECT 
+        c.id AS [id],
+        c.name AS [name]
+    FROM 
+        uni_tasks.class AS c
+        INNER JOIN uni_tasks.course AS cr ON c.crs_id = cr.id
+        INNER JOIN uni_tasks.offered_at AS offered ON cr.id = offered.crs_id
+        INNER JOIN uni_tasks.university AS uni ON offered.uni_id = uni.id
+        INNER JOIN uni_tasks._user AS usr ON uni.id = usr.uni_id
+    WHERE 
+        usr.id = @usr_id;
 END
