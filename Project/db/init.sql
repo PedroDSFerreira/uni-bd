@@ -1121,18 +1121,22 @@ BEGIN
 END
 GO
 CREATE PROCEDURE uni_tasks.ListClasses
-    @usr_id INT
+	@user_id INT
 AS
 BEGIN
-    SELECT 
-        c.id AS [id],
-        c.name AS [name]
-    FROM 
-        uni_tasks.class AS c
-        INNER JOIN uni_tasks.course AS cr ON c.crs_id = cr.id
-        INNER JOIN uni_tasks.offered_at AS offered ON cr.id = offered.crs_id
-        INNER JOIN uni_tasks.university AS uni ON offered.uni_id = uni.id
-        INNER JOIN uni_tasks._user AS usr ON uni.id = usr.uni_id
-    WHERE 
-        usr.id = @usr_id;
+	IF EXISTS(SELECT 1 FROM uni_tasks._user WHERE [id] = @user_id AND [uni_id] IS NOT NULL)
+	BEGIN
+		-- User has a university, list classes from the university
+		SELECT cl.[id] AS [id], cl.[name] AS [name]
+		FROM uni_tasks.class AS cl
+		INNER JOIN uni_tasks.offered_at AS o ON o.crs_id = cl.crs_id
+		INNER JOIN uni_tasks._user AS u ON u.uni_id = o.uni_id
+		WHERE u.[id] = @user_id
+	END
+	ELSE
+	BEGIN
+		-- User does not have a university, list all classes
+		SELECT [id], [name]
+		FROM uni_tasks.class
+	END
 END
