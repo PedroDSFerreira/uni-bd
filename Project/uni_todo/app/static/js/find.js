@@ -64,7 +64,11 @@ function fillTable(response) {
             var user = response[i];
             var row = $('<tr id="user-' + user.id + '"></tr>');
             row.append('<td>' + user.name + '</td>');
-            row.append('<td>' + universities[user.uni_id] + '</td>');
+            if (user.uni_id == null) {
+                row.append('<td>---</td>');
+            } else {
+                row.append('<td>' + universities[user.uni_id] + '</td>');
+            }
             if (user.can_follow == true) {
                 row.append(`
                     <td>

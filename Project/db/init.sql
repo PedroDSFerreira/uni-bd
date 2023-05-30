@@ -1121,17 +1121,17 @@ BEGIN
 END
 GO
 CREATE PROCEDURE uni_tasks.ListClasses
-	@user_id INT
+	@usr_id INT
 AS
 BEGIN
-	IF EXISTS(SELECT 1 FROM uni_tasks._user WHERE [id] = @user_id AND [uni_id] IS NOT NULL)
+	IF EXISTS(SELECT 1 FROM uni_tasks._user WHERE [id] = @usr_id AND [uni_id] IS NOT NULL)
 	BEGIN
 		-- User has a university, list classes from the university
 		SELECT cl.[id] AS [id], cl.[name] AS [name]
 		FROM uni_tasks.class AS cl
 		INNER JOIN uni_tasks.offered_at AS o ON o.crs_id = cl.crs_id
 		INNER JOIN uni_tasks._user AS u ON u.uni_id = o.uni_id
-		WHERE u.[id] = @user_id
+		WHERE u.[id] = @usr_id
 	END
 	ELSE
 	BEGIN

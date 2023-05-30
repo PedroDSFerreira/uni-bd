@@ -35,7 +35,6 @@ function listFollowers() {
 }
 
 function fillTable(data) {
-    console.log(data);
     var table = $('#followees-table');
     var tbody = table.find('tbody');
     tbody.empty();
@@ -51,7 +50,11 @@ function fillTable(data) {
             var user = data[i];
             var row = $(`<tr id="user-${user.id}"></tr>`);
             row.append("<td>" + user.name + "</td>");
-            row.append("<td>" + universities[user.uni_id] + "</td>");
+            if (user.uni_id == null) {
+                row.append('<td>---</td>');
+            } else {
+                row.append('<td>' + universities[user.uni_id] + '</td>');
+            }
 
             tbody.append(row);
         }

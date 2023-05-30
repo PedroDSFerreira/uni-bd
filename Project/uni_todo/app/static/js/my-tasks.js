@@ -1,4 +1,5 @@
 var user_id = 1;
+var classes = [];
 $(document).ready(function() {
     // get all classes
     $.ajax({
@@ -32,7 +33,7 @@ $(document).ready(function() {
         // Set the value of the input field in the modal
         modal.find('#editName').val(rowValues[0]);
         modal.find('#editDescription').val(rowValues[1]);
-        // modal.find('#editClass').val(rowValues[2]);  TODO
+        modal.find('#editClass').val(classes.indexOf(rowValues[2]));
         modal.find('#editGroup').val(rowValues[3]);
         modal.find('#editStartDate').val(rowValues[4]);
         modal.find('#editEndDate').val(rowValues[5]);
@@ -44,7 +45,7 @@ $(document).ready(function() {
             e.preventDefault();
             var updatedTaskName = modal.find('#editName').val();
             var updatedDescription = modal.find('#editDescription').val();
-            // var updatedClass = modal.find('#editClass').val(); TODO
+            var updatedClassId = modal.find('#editClass').val();
             var updatedGroup = modal.find('#editGroup').val();
             var updatedStartDate = modal.find('#editStartDate').val();
             var updatedEndDate = modal.find('#editEndDate').val();
@@ -63,7 +64,7 @@ $(document).ready(function() {
                 "user_id": user_id,
                 "task_name": updatedTaskName,
                 "description": updatedDescription,
-                "class_id": 1,
+                "class_id": updatedClassId,
                 "group": updatedGroup,
                 "start_date": updatedStartDate,
                 "end_date": updatedEndDate,
@@ -82,7 +83,7 @@ $(document).ready(function() {
             e.preventDefault();
             var createTaskName = modal.find('#createName').val();
             var createDescription = modal.find('#createDescription').val();
-            // var createClass = modal.find('#createClass').val(); TODO
+            var createClassId = modal.find('#createClass').val();
             var createGroup = modal.find('#createGroup').val();
             var createStartDate = modal.find('#createStartDate').val();
             var createEndDate = modal.find('#createEndDate').val();
@@ -102,7 +103,7 @@ $(document).ready(function() {
                 "user_id": user_id,
                 "task_name": createTaskName,
                 "description": createDescription,
-                "class_id": 1,
+                "class_id": createClassId,
                 "group": createGroup,
                 "start_date": createStartDate,
                 "end_date": createEndDate,
@@ -110,7 +111,6 @@ $(document).ready(function() {
                 "status": createStatus,
                 "is_public": createIsPublic
             }
-            console.log(newData);
             createTask(JSON.stringify(newData));
         });
       });
@@ -207,8 +207,12 @@ function getRowValues(id) {
 }
 
 function fillClasses(response) {
-    // fill the select with classes
+    // fill dict with classes
+    for (var i = 0; i < response.length; i++) {
+        classes[response[i].id] = response[i].name;
+    }
 
+    // fill the select with classes
     // edit
     var select = $('#editClass');
     select.empty();
