@@ -11,6 +11,7 @@ urlpatterns = [
     path('list_followers', views.list_followers, name='list_followers'),
     path('list_tasks', views.list_tasks, name='list_tasks'),
     path('create_task', views.create_task, name='create_task'),
+    path('get_user', views.get_user, name='get_user'),
     path('search_user', views.search_user, name='search_user'),
     path('update_task', views.update_task, name='update_task'),
     path('register_user', views.register_user, name='register_user'),

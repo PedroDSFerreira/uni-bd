@@ -207,6 +207,27 @@ def search_user(request):
     
     return JsonResponse({'error': 'Invalid request method.'})
 
+
+@csrf_exempt
+def get_user(request):
+    """Returns a user's information."""
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
+        
+        with connection.cursor() as cursor:
+            # Execute the GetUser stored procedure
+            cursor.execute("EXEC uni_tasks.GetUser @usr_id=%s", [user_id])
+            result = cursor.fetchone()
+        
+        user = {
+            'name': result[0],
+            'university': result[1]
+        }
+        
+        return JsonResponse(user, safe=False)
+    
+    return JsonResponse({'error': 'Invalid request method.'})
+
 @csrf_exempt
 def update_task(request):
     """Updates a task."""

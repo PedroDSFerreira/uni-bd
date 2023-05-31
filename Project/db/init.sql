@@ -1069,3 +1069,14 @@ BEGIN
 		FROM uni_tasks.class
 	END
 END
+GO
+CREATE PROCEDURE uni_tasks.GetUser
+    @usr_id INT
+AS
+BEGIN
+    -- Return user name and university name
+    SELECT u.[name], un.[name]
+    FROM uni_tasks._user u
+    INNER JOIN uni_tasks.university un ON u.uni_id = un.id
+    WHERE u.[id] = @usr_id;
+END

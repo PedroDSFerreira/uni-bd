@@ -49,7 +49,11 @@ function fillTable(data) {
         for (var i = 0; i < data.length; i++) {
             var user = data[i];
             var row = $(`<tr id="user-${user.id}"></tr>`);
-            row.append("<td>" + user.name + "</td>");
+            row.append(`
+                <td>
+                    <a href="/user/${user.id}">${user.name}</a>
+                </td>
+            `);
             if (user.uni_id == null) {
                 row.append('<td>---</td>');
             } else {
