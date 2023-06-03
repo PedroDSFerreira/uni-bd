@@ -306,7 +306,7 @@ def login_user(request):
 
 @csrf_exempt
 def list_classes(request):
-    """Lists all classes."""
+    """Lists all classes from user's uni."""
     if request.method == 'GET':
         user_id = request.GET.get('user_id')
         with connection.cursor() as cursor:

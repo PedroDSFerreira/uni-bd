@@ -56,11 +56,11 @@ To run the server, you need to have the following software installed:
      [
        {
          "id": 1,
-         "name": "University 1"
+         "name": "University of Aveiro"
        },
        {
          "id": 2,
-         "name": "University 2"
+         "name": "Cambridge University"
        }
      ]
      ```
@@ -115,7 +115,24 @@ To run the server, you need to have the following software installed:
      }
      ```
 
-5. `/list_followees`
+5. `/unfollow_user`
+   - Request method: POST
+   - Description: Unfollows a user.
+   - Example request:
+     ```json
+     {
+       "follower_id": "123",
+       "followee_id": "456"
+     }
+     ```
+   - Example response:
+     ```json
+     {
+       "message": "User unfollowed successfully."
+     }
+     ```
+
+6. `/list_followees`
    - Request method: GET
    - Description: Retrieves a list of followees for a given user.
    - Example request: `/list_followees?user_id=123`
@@ -135,7 +152,7 @@ To run the server, you need to have the following software installed:
      ]
      ```
 
-6. `/list_followers`
+7. `/list_followers`
    - Request method: GET
    - Description: Retrieves a list of followers for a given user.
    - Example request: `/list_followers?user_id=123`
@@ -155,7 +172,7 @@ To run the server, you need to have the following software installed:
      ]
      ```
 
-7. `/list_tasks`
+8. `/list_tasks`
    - Request method: GET
    - Description: Retrieves a list of tasks for a given user.
    - Example request: `/list_tasks?user_id=1&is_public=0`
@@ -163,21 +180,30 @@ To run the server, you need to have the following software installed:
      ```json
      [
        {
-         "id": 1,
-         "name": "Task 1",
-         "description": "Task description",
-         "status": "Pending"
-       },
-       {
-         "id": 2,
-         "name": "Task 2",
-         "description": "Task description",
-         "status": "Completed"
-       }
+        "task_name": "New Task",
+        "class_id": 123,
+        "description": "Task description",
+        "group": "Group 1",
+        "status": "Pending",
+        "start_date": "2023-05-28",
+        "end_date": "2023-06-05",
+        "priority_lvl": 2
+      },
+      {
+        "task_name": "New Task 2",
+        "class_id": 1,
+        "description": "Task description 2",
+        "group": "Group 2",
+        "status": "Completed",
+        "start_date": "2023-05-28",
+        "end_date": "2023-06-05",
+        "priority_lvl": 5
+      }
      ]
      ```
 
-8. `/create_task`
+
+9. `/create_task`
    - Request method: POST
    - Description: Creates a new task.
    - Example request:
@@ -202,7 +228,7 @@ To run the server, you need to have the following software installed:
      }
      ```
 
-9. `/search_user`
+10. `/search_user`
    - Request method: POST
    - Description: Searches for a user by name. Returns users and whether or not the current user can follow them.
    - Example request:
@@ -230,7 +256,20 @@ To run the server, you need to have the following software installed:
      ]
      ```
 
-10. `/update_task`
+11. `/get_user`
+    - Request method: GET
+    - Description: Retrieves a user and university name, by user id.
+    - Example request: `/get_user?user_id=123`
+    - Example response:
+      ```json
+      {
+        "id": 1,
+        "name": "John",
+        "university": "University of Aveiro"
+      }
+      ```
+
+12. `/update_task`
     - Request method: POST
     - Description: Updates a task.
     - Example request:
@@ -244,8 +283,8 @@ To run the server, you need to have the following software installed:
         "status": "In Progress",
         "start_date": "2023-06-01",
         "end_date": "2023-06-10",
-        "priority_lvl": "1",
-        "is_public": "0"
+        "priority_lvl": 1,
+        "is_public": 0
       }
       ```
     - Example response:
@@ -255,7 +294,7 @@ To run the server, you need to have the following software installed:
       }
       ```
 
-11. `/register_user`
+13. `/register_user`
     - Request method: POST
     - Description: Registers a new user.
     - Example request:
@@ -272,14 +311,14 @@ To run the server, you need to have the following software installed:
       }
       ```
 
-12. `/login_user`
+14. `/login_user`
     - Request method: POST
     - Description: Logs in a user.
     - Example request:
       ```json
       {
-        "username": "existinguser",
-        "password": "password123"
+        "username": "user",
+        "password": "password"
       }
       ```
     - Example response:
@@ -287,4 +326,22 @@ To run the server, you need to have the following software installed:
       {
         "status": true,
       }
+      ```
+
+15. `/list_classes`
+    - Request method: GET
+    - Description: Retrieves a list of classes of the university frequented by the user.
+    - Example request: `/list_classes?user_id=123`
+    - Example response:
+      ```json
+      [
+        {
+          "id": 1,
+          "name": "Class 1"
+        },
+        {
+          "id": 2,
+          "name": "Class 2"
+        }
+      ]
       ```
