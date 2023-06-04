@@ -38,7 +38,7 @@ CREATE TABLE uni_tasks._user(
 	[id] [int] IDENTITY(1, 1) NOT NULL,
 	[name] [varchar](128) NOT NULL,
 	[password_hash] [varbinary](256) NOT NULL,
-	[uni_id] [int] NOT NULL,
+	[uni_id] [int],
 	PRIMARY KEY ([id]),
 	FOREIGN KEY ([uni_id]) REFERENCES uni_tasks.university([id])
 );
