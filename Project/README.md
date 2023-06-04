@@ -35,7 +35,7 @@ To run the server, you need to have the following software installed:
     git clone <repo-url>
     ```
     
-2. Navigate to the project directory.
+2. Navigate to the `project` directory.
 3. Build and run the Docker containers:
     
     ```bash
