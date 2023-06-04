@@ -1,0 +1,1 @@
+CREATE NONCLUSTERED INDEX idx_user ON uni_tasks._user([name]);
