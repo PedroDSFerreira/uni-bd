@@ -10,3 +10,4 @@ sleep 60s
 /opt/mssql-tools/bin/sqlcmd -S bd -U sa -P MyPass@word -d master -i indexes.sql
 /opt/mssql-tools/bin/sqlcmd -S bd -U sa -P MyPass@word -d master -i udfs.sql
 /opt/mssql-tools/bin/sqlcmd -S bd -U sa -P MyPass@word -d master -i stored-procedures.sql
+/opt/mssql-tools/bin/sqlcmd -S bd -U sa -P MyPass@word -d master -i views.sql

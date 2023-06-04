@@ -60,45 +60,43 @@ BEGIN
     IF @is_public = 1
     BEGIN
 		SELECT
-			t.id AS task_id,
-			t.name AS task_name,
-			c.name AS class_name,
-			a.description,
-			a.[group],
-			a.[status],
-			a.start_date,
-			a.end_date,
-			a.priority_lvl
+			task_id,
+            task_name,
+            class_name,
+            description,
+            [group],
+            [status],
+            start_date,
+            end_date,
+            priority_lvl
 		FROM
-			uni_tasks.task t
-			INNER JOIN uni_tasks.attributes a ON a.t_id = t.id
-			INNER JOIN uni_tasks.class c ON t.cl_id = c.id
-			INNER JOIN uni_tasks.assigned_to assigned ON t.id = assigned.t_id
+			uni_tasks.TaskListView
 		WHERE
-			assigned.usr_id = @usr_id
-			AND t.is_deleted = 0
-			AND a.is_public = 1
+            usr_id = @usr_id
+            AND is_public = 1
+        ORDER BY
+            class_name, task_name;
+
     END
     ELSE
     BEGIN
 		SELECT
-			t.id AS task_id,
-			t.name AS task_name,
-			c.name AS class_name,
-			a.description,
-			a.[group],
-			a.[status],
-			a.start_date,
-			a.end_date,
-			a.priority_lvl
+			task_id,
+            task_name,
+            class_name,
+            description,
+            [group],
+            [status],
+            start_date,
+            end_date,
+            priority_lvl
 		FROM
-			uni_tasks.task t
-			INNER JOIN uni_tasks.attributes a ON a.t_id = t.id
-			INNER JOIN uni_tasks.class c ON t.cl_id = c.id
-			INNER JOIN uni_tasks.assigned_to assigned ON t.id = assigned.t_id
-		WHERE
-			assigned.usr_id = @usr_id
-			AND t.is_deleted = 0
+			uni_tasks.TaskListView
+        WHERE
+            usr_id = @usr_id
+        ORDER BY
+            class_name, task_name;
+
     END
 END
 GO
@@ -180,7 +178,8 @@ BEGIN
         END AS can_follow
     FROM uni_tasks._user u
     WHERE u.[id] <> @usr_id -- Exclude the entry with @usr_id
-        AND u.[name] LIKE '%' + @user_name + '%';
+        AND u.[name] LIKE '%' + @user_name + '%'
+    ORDER BY u.[name];
 END
 GO
 CREATE PROCEDURE uni_tasks.UpdateTask
