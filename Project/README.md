@@ -64,4 +64,4 @@ To run the server, you need to have the following software installed:
 - `/login_user`
 - `/list_classes`
 
-For more information on the API endpoints, please refer to the [secondary report](secondary-report.pdf)
+For more information on the API endpoints, please refer to the [secondary report](reports/secondary-report.pdf)
