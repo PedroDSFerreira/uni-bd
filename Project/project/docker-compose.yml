@@ -2,7 +2,7 @@ version: '3'
 
 services:
   bd:
-    image: "ghcr.io/pedrodsferreira/unitask-db:latest"
+    build: ./db
     environment:
       - MSSQL_SA_PASSWORD=MyPass@word
       - ACCEPT_EULA=Y
@@ -11,7 +11,7 @@ services:
 
     
   django:
-    image: "ghcr.io/pedrodsferreira/unitask:latest"
+    build: ./uni_todo
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DB_HOST=bd
