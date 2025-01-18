@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   bd:
     build: ./db
@@ -9,7 +7,7 @@ services:
     ports:
       - "1433:1433"
 
-    
+
   django:
     build: ./uni_todo
     command: python manage.py runserver 0.0.0.0:8000

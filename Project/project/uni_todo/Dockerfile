@@ -18,5 +18,6 @@ RUN curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/so
 RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
+RUN apt-get install -y unixodbc-dev
 # python dependencies
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
